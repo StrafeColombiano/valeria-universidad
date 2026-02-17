@@ -14,189 +14,229 @@
   <!-- Babel -->
   <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
 
+  <!-- Lucide -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+
   <style>
-    html, body { height: 100%; }
+    body { font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; }
   </style>
 </head>
 
-<body class="bg-[#F0F2F5]">
-  <div id="root"></div>
+<body class="bg-slate-100">
+<div id="root"></div>
 
-  <script type="text/babel">
-    const { useState } = React;
+<script type="text/babel">
 
-    const ArrowRight = () => <span className="text-xl font-black">→</span>;
-    const ArrowLeft = () => <span className="text-xl font-black">←</span>;
+const { useState } = React;
+const {
+  Baby, Dna, Globe, Users, Brain, ChevronRight, ChevronLeft,
+  Home, Activity, ShieldAlert, GraduationCap, MapPin,
+  Stethoscope, Quote, Sparkles
+} = lucideReact;
 
-    const App = () => {
-      const [slide, setSlide] = useState(0);
+const App = () => {
+  const [currentSlide, setCurrentSlide] = useState(0);
 
-      const slides = [
+  const slides = [
+    { title: "Inicio", component: <Cover /> },
+    { title: "Contexto", component: <Context /> },
+    { title: "Herencia", component: <Herencia /> },
+    { title: "Ambiente", component: <Ambiente /> },
+    { title: "Interacción", component: <Interaccion /> },
+    { title: "Sustento", component: <Teorias /> }
+  ];
 
-        /* PORTADA */
-        (
-          <div className="h-full flex flex-col justify-center items-center text-center bg-[#FFF9F9] p-10 rounded-3xl space-y-6">
-            <h1 className="text-4xl font-black text-[#5C5C5C]">
-              Amenazas Biológicas
-              <span className="block text-[#FF91A4] italic">
-                Contemporáneas en Barranquilla
-              </span>
-            </h1>
+  const next = () => setCurrentSlide(s => Math.min(s + 1, slides.length - 1));
+  const prev = () => setCurrentSlide(s => Math.max(s - 1, 0));
 
-            <h2 className="text-xl text-[#7A7A7A]">
-              Bajo Peso al Nacer (BPN): Herencia y Ambiente
-            </h2>
+  return (
+    <div className="w-full h-screen flex items-center justify-center p-4">
+      <div className="w-full max-w-6xl h-[650px] bg-white rounded-3xl shadow-xl overflow-hidden flex">
 
-            <div className="bg-white p-6 rounded-2xl shadow text-sm max-w-xl">
-              <p className="font-bold mb-2 text-[#5C5C5C]">Integrantes – CIA Unidad 1</p>
-              <ul className="grid grid-cols-2 gap-2 text-[#7A7A7A]">
-                <li>• Jose Florez</li>
-                <li>• Isamara Tovio Torres</li>
-                <li>• Sailly Arias</li>
-                <li>• Valeria Castillo</li>
-                <li>• Valerie</li>
-              </ul>
+        {/* Sidebar */}
+        <aside className="hidden md:flex flex-col w-72 bg-slate-50 border-r p-6 justify-between">
+          <div>
+            <div className="flex items-center gap-3 mb-8">
+              <div className="w-10 h-10 rounded-xl bg-slate-200 flex items-center justify-center">
+                <Sparkles />
+              </div>
+              <div>
+                <p className="text-[10px] uppercase tracking-widest text-slate-400 font-bold">
+                  OVA INTERACTIVO
+                </p>
+                <p className="font-black text-slate-700">
+                  Desarrollo Humano
+                </p>
+              </div>
             </div>
 
-            <button
-              onClick={() => setSlide(1)}
-              className="px-10 py-4 bg-[#FF91A4] text-white rounded-2xl font-black hover:bg-[#FF7A8F]"
-            >
-              INICIAR OVA →
-            </button>
+            <nav className="space-y-2">
+              {slides.map((s, i) => (
+                <button
+                  key={i}
+                  onClick={() => setCurrentSlide(i)}
+                  className={`w-full px-4 py-3 rounded-xl text-left text-sm transition
+                    ${currentSlide === i
+                      ? "bg-white shadow font-bold text-slate-800"
+                      : "text-slate-400 hover:bg-slate-100"}`}
+                >
+                  {s.title}
+                </button>
+              ))}
+            </nav>
           </div>
-        ),
 
-        /* CONTEXTO */
-        (
-          <div className="p-10 space-y-4">
-            <h2 className="text-3xl font-black">Contexto del Problema</h2>
-            <p className="text-sm text-[#7A7A7A]">
-              El Bajo Peso al Nacer (BPN) afecta entre el 15% y 20% de los recién nacidos
-              a nivel mundial, lo que representa más de 20 millones de bebés cada año.
-            </p>
-            <p className="text-sm text-[#7A7A7A]">
-              En Barranquilla, estudios locales señalan una prevalencia cercana al 66% en
-              poblaciones vulnerables, asociada principalmente a anemia materna,
-              desnutrición y acceso limitado a controles prenatales.
-            </p>
-            <p className="text-sm text-[#7A7A7A]">
-              La OMS estableció como meta global reducir el BPN en un 30% para el año 2025,
-              reconociendo su impacto a largo plazo en la salud y el desarrollo humano.
-            </p>
+          <div className="text-xs text-slate-400">
+            Proyecto CIA – ABP<br/>
+            Bajo Peso al Nacer
           </div>
-        ),
+        </aside>
 
-        /* HERENCIA */
-        (
-          <div className="p-10 space-y-4">
-            <h2 className="text-3xl font-black">Análisis de la Herencia</h2>
-            <p className="text-sm text-[#7A7A7A]">
-              Desde la perspectiva de Piaget (Feldman, 2007), el desarrollo infantil se
-              fundamenta en la maduración biológica y en los reflejos innatos que permiten
-              la interacción inicial con el entorno.
-            </p>
-            <p className="text-sm text-[#7A7A7A]">
-              El Bajo Peso al Nacer puede afectar esta base biológica, limitando la
-              exploración temprana, la fuerza física y la capacidad de adaptación en las
-              primeras etapas del desarrollo.
-            </p>
-            <p className="text-sm italic text-[#6B7280]">
-              Bronfenbrenner define la herencia como la “constitución orgánica” del sujeto,
-              que debe ajustarse constantemente a un medio demandante.
-            </p>
+        {/* Content */}
+        <main className="flex-1 flex flex-col">
+          <div className="flex-1 overflow-hidden">
+            {slides[currentSlide].component}
           </div>
-        ),
 
-        /* AMBIENTE */
-        (
-          <div className="p-10 space-y-4">
-            <h2 className="text-3xl font-black">Análisis del Ambiente</h2>
-            <p className="text-sm text-[#7A7A7A]">
-              Según el modelo ecológico de Bronfenbrenner, el desarrollo humano está
-              influenciado por múltiples sistemas ambientales.
-            </p>
-            <ul className="text-sm text-[#7A7A7A] space-y-2">
-              <li><strong>Microsistema:</strong> condiciones del hogar, higiene y cuidado materno.</li>
-              <li><strong>Mesosistema:</strong> relación entre familia y servicios de salud.</li>
-              <li><strong>Macrosistema:</strong> políticas públicas, cultura y nivel socioeconómico.</li>
-            </ul>
-            <p className="text-sm italic">
-              El ambiente puede acelerar o retrasar el desarrollo, incluso cuando existen
-              riesgos biológicos.
-            </p>
-          </div>
-        ),
-
-        /* INTERACCIÓN */
-        (
-          <div className="p-10 space-y-4">
-            <h2 className="text-3xl font-black">Interacción Herencia – Ambiente</h2>
-            <p className="text-sm text-[#7A7A7A]">
-              La conducta y el desarrollo son el resultado de la interacción constante
-              entre la persona y su ambiente (Conducta = f [P ↔ A]).
-            </p>
-            <p className="text-sm text-[#7A7A7A]">
-              Erikson señala que en la etapa de confianza vs. desconfianza, un entorno
-              inestable combinado con BPN puede afectar el vínculo y la seguridad emocional.
-            </p>
-            <p className="text-sm italic">
-              Un ambiente favorable puede mitigar riesgos biológicos severos y permitir un
-              desarrollo cognitivo y socioemocional adecuado.
-            </p>
-          </div>
-        ),
-
-        /* TEORÍAS */
-        (
-          <div className="p-10 space-y-4">
-            <h2 className="text-3xl font-black">Sustento Teórico</h2>
-            <p className="text-sm italic text-[#7A7A7A]">
-              Papalia (2012) afirma que el desarrollo humano es vitalicio, multidimensional
-              y multidireccional, y que los cambios en una dimensión influyen en las demás.
-            </p>
-
-            <div className="text-xs text-[#6B7280] space-y-1">
-              <p>• Erikson, E. (1950). Childhood and Society.</p>
-              <p>• Feldman, R. (2007). Desarrollo Psicológico.</p>
-              <p>• Papalia, D. et al. (2012). Desarrollo Humano.</p>
-              <p>• OMS (2014). Metas globales sobre BPN.</p>
-              <p>• Pérez Fernández (2004). Modelo ecológico de Bronfenbrenner.</p>
-            </div>
-          </div>
-        )
-      ];
-
-      return (
-        <div className="w-full h-screen flex flex-col bg-white max-w-4xl mx-auto shadow-xl rounded-3xl overflow-hidden">
-          <div className="flex-1 overflow-y-auto">{slides[slide]}</div>
-
-          <div className="flex justify-between items-center p-4 border-t">
-            <button
-              onClick={() => setSlide(s => Math.max(s - 1, 0))}
-              disabled={slide === 0}
-              className="px-4 py-2 bg-gray-100 rounded disabled:opacity-40"
-            >
-              <ArrowLeft />
+          <footer className="flex justify-between items-center px-8 py-4 border-t">
+            <button onClick={prev} disabled={currentSlide===0}
+              className="flex items-center gap-2 text-sm disabled:opacity-30">
+              <ChevronLeft /> Anterior
             </button>
 
-            <span className="text-xs">
-              {slide + 1} / {slides.length}
-            </span>
-
-            <button
-              onClick={() => setSlide(s => Math.min(s + 1, slides.length - 1))}
-              disabled={slide === slides.length - 1}
-              className="px-4 py-2 bg-[#FF91A4] text-white rounded disabled:opacity-40"
-            >
-              <ArrowRight />
+            <button onClick={next} disabled={currentSlide===slides.length-1}
+              className="flex items-center gap-2 text-sm font-bold bg-slate-700 text-white px-5 py-2 rounded-xl disabled:opacity-30">
+              Siguiente <ChevronRight />
             </button>
-          </div>
-        </div>
-      );
-    };
+          </footer>
+        </main>
 
-    ReactDOM.createRoot(document.getElementById("root")).render(<App />);
-  </script>
+      </div>
+    </div>
+  );
+};
+
+/* ====== SLIDES ====== */
+
+const Cover = () => (
+  <section className="h-full flex flex-col items-center justify-center text-center p-10 space-y-6">
+    <Baby size={72} className="text-slate-700"/>
+    <h1 className="text-3xl font-black text-slate-800">
+      Amenazas Biológicas Contemporáneas en Barranquilla
+    </h1>
+    <h2 className="text-lg text-slate-500">
+      Bajo Peso al Nacer (BPN): Herencia y Ambiente
+    </h2>
+
+    <div className="bg-slate-50 p-6 rounded-2xl max-w-xl w-full">
+      <p className="text-xs uppercase tracking-widest font-bold text-slate-400 mb-4">
+        Integrantes – CIA Unidad 1
+      </p>
+      <div className="grid grid-cols-2 md:grid-cols-3 gap-2 text-sm">
+        {["Jose Florez","Isamara Tovio Torres","Sailly Arias","Valeria Castillo","Valerie"].map(n=>(
+          <div key={n} className="bg-white rounded-xl p-2 shadow-sm">{n}</div>
+        ))}
+      </div>
+    </div>
+  </section>
+);
+
+const Context = () => (
+  <section className="h-full p-8 space-y-6">
+    <h2 className="text-2xl font-black flex items-center gap-2">
+      <MapPin /> Contexto del Problema
+    </h2>
+
+    <p className="text-sm text-slate-600">
+      El Bajo Peso al Nacer es una amenaza biológica contemporánea que afecta el
+      desarrollo vitalicio. En Barranquilla se asocia a anemia materna y acceso limitado
+      a controles prenatales.
+    </p>
+
+    <ul className="text-sm list-disc pl-6 space-y-2 text-slate-600">
+      <li>OMS: 15–20% de recién nacidos presentan BPN.</li>
+      <li>Hospital Niño Jesús: alta relación con anemia materna.</li>
+      <li>Meta OMS 2025: reducción del 30%.</li>
+    </ul>
+  </section>
+);
+
+const Herencia = () => (
+  <section className="h-full p-8 space-y-4">
+    <h2 className="text-2xl font-black flex items-center gap-2">
+      <Dna /> Análisis de la Herencia
+    </h2>
+
+    <p className="text-sm text-slate-600">
+      Según Piaget (Feldman, 2007), el desarrollo parte de reflejos innatos y
+      maduración biológica. Alteraciones genéticas o teratógenos pueden limitar
+      la acción y la adaptación.
+    </p>
+
+    <p className="text-sm text-slate-600 italic">
+      Bronfenbrenner define la herencia como la constitución orgánica del sujeto,
+      base de su interacción con el ambiente.
+    </p>
+  </section>
+);
+
+const Ambiente = () => (
+  <section className="h-full p-8 space-y-4">
+    <h2 className="text-2xl font-black flex items-center gap-2">
+      <Home /> Análisis del Ambiente
+    </h2>
+
+    <ul className="text-sm text-slate-600 space-y-2 list-disc pl-6">
+      <li><strong>Microsistema:</strong> vivienda, higiene, contaminación.</li>
+      <li><strong>Mesosistema:</strong> familia y servicios de salud.</li>
+      <li><strong>Macrosistema:</strong> leyes, cultura y economía.</li>
+    </ul>
+
+    <blockquote className="text-sm italic text-slate-500 border-l-4 pl-4">
+      “El ambiente puede acelerar o limitar el desarrollo biológico”.
+    </blockquote>
+  </section>
+);
+
+const Interaccion = () => (
+  <section className="h-full p-8 space-y-4">
+    <h2 className="text-2xl font-black flex items-center gap-2">
+      <Activity /> Interacción Herencia–Ambiente
+    </h2>
+
+    <p className="text-sm text-slate-600">
+      Bronfenbrenner plantea que la conducta es función de la persona y el ambiente.
+      Erikson explica que un ambiente inestable puede afectar la confianza básica.
+    </p>
+
+    <p className="text-sm text-slate-600">
+      Piaget destaca la asimilación y acomodación como mecanismos de adaptación
+      frente a riesgos biológicos.
+    </p>
+  </section>
+);
+
+const Teorias = () => (
+  <section className="h-full p-8 space-y-4">
+    <h2 className="text-2xl font-black flex items-center gap-2">
+      <GraduationCap /> Sustento Teórico
+    </h2>
+
+    <p className="text-sm italic text-slate-600">
+      Papalia (2012): el desarrollo es vitalicio, multidimensional y multidireccional.
+    </p>
+
+    <ul className="text-xs text-slate-500 space-y-1">
+      <li>Erikson, E. (1950). Childhood and society.</li>
+      <li>Feldman, R. (2007). Desarrollo psicológico.</li>
+      <li>OMS (2014). Metas mundiales sobre BPN.</li>
+      <li>Papalia et al. (2012). Desarrollo humano.</li>
+      <li>Pérez Fernández (2004). Modelo ecológico.</li>
+    </ul>
+  </section>
+);
+
+ReactDOM.createRoot(document.getElementById("root")).render(<App />);
+</script>
 </body>
 </html>
