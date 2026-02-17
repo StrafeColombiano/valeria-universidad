@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <title>OVA – Bajo Peso al Nacer</title>
 
-  <!-- Tailwind -->
+  <!-- Tailwind CDN -->
   <script src="https://cdn.tailwindcss.com"></script>
 
   <!-- React -->
@@ -14,229 +14,109 @@
   <!-- Babel -->
   <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
 
-  <!-- Lucide -->
-  <script src="https://unpkg.com/lucide@latest"></script>
-
   <style>
-    body { font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; }
+    body {
+      margin: 0;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    }
   </style>
 </head>
 
 <body class="bg-slate-100">
-<div id="root"></div>
+  <div id="root"></div>
 
-<script type="text/babel">
+  <script type="text/babel">
+    const { useState } = React;
 
-const { useState } = React;
-const {
-  Baby, Dna, Globe, Users, Brain, ChevronRight, ChevronLeft,
-  Home, Activity, ShieldAlert, GraduationCap, MapPin,
-  Stethoscope, Quote, Sparkles
-} = lucideReact;
+    /* ======================
+       APP PRINCIPAL
+    ====================== */
 
-const App = () => {
-  const [currentSlide, setCurrentSlide] = useState(0);
+    const App = () => {
+      const [currentSlide, setCurrentSlide] = useState(0);
 
-  const slides = [
-    { title: "Inicio", component: <Cover /> },
-    { title: "Contexto", component: <Context /> },
-    { title: "Herencia", component: <Herencia /> },
-    { title: "Ambiente", component: <Ambiente /> },
-    { title: "Interacción", component: <Interaccion /> },
-    { title: "Sustento", component: <Teorias /> }
-  ];
+      const slides = [
+        { title: "Inicio", component: <Cover /> }
+      ];
 
-  const next = () => setCurrentSlide(s => Math.min(s + 1, slides.length - 1));
-  const prev = () => setCurrentSlide(s => Math.max(s - 1, 0));
+      return (
+        <div className="w-full h-screen flex items-center justify-center p-4">
+          <div className="w-full max-w-5xl h-[650px] bg-white rounded-3xl shadow-xl overflow-hidden flex">
 
-  return (
-    <div className="w-full h-screen flex items-center justify-center p-4">
-      <div className="w-full max-w-6xl h-[650px] bg-white rounded-3xl shadow-xl overflow-hidden flex">
-
-        {/* Sidebar */}
-        <aside className="hidden md:flex flex-col w-72 bg-slate-50 border-r p-6 justify-between">
-          <div>
-            <div className="flex items-center gap-3 mb-8">
-              <div className="w-10 h-10 rounded-xl bg-slate-200 flex items-center justify-center">
-                <Sparkles />
-              </div>
+            {/* Sidebar */}
+            <aside className="hidden md:flex flex-col w-72 bg-slate-50 border-r p-6 justify-between">
               <div>
-                <p className="text-[10px] uppercase tracking-widest text-slate-400 font-bold">
-                  OVA INTERACTIVO
-                </p>
-                <p className="font-black text-slate-700">
-                  Desarrollo Humano
-                </p>
+                <div className="mb-8">
+                  <p className="text-[10px] uppercase tracking-widest text-slate-400 font-bold">
+                    OVA INTERACTIVO
+                  </p>
+                  <p className="font-black text-slate-700">
+                    Desarrollo Humano
+                  </p>
+                </div>
+
+                <nav>
+                  <button className="w-full px-4 py-3 rounded-xl bg-white shadow font-bold text-slate-800 text-left">
+                    Inicio
+                  </button>
+                </nav>
               </div>
-            </div>
 
-            <nav className="space-y-2">
-              {slides.map((s, i) => (
-                <button
-                  key={i}
-                  onClick={() => setCurrentSlide(i)}
-                  className={`w-full px-4 py-3 rounded-xl text-left text-sm transition
-                    ${currentSlide === i
-                      ? "bg-white shadow font-bold text-slate-800"
-                      : "text-slate-400 hover:bg-slate-100"}`}
-                >
-                  {s.title}
-                </button>
-              ))}
-            </nav>
+              <div className="text-xs text-slate-400">
+                Proyecto CIA – ABP<br/>
+                Bajo Peso al Nacer
+              </div>
+            </aside>
+
+            {/* Contenido */}
+            <main className="flex-1 flex flex-col">
+              <div className="flex-1 overflow-hidden">
+                {slides[currentSlide].component}
+              </div>
+            </main>
+
           </div>
+        </div>
+      );
+    };
 
-          <div className="text-xs text-slate-400">
-            Proyecto CIA – ABP<br/>
-            Bajo Peso al Nacer
+    /* ======================
+       SLIDE 1 – PORTADA
+    ====================== */
+
+    const Cover = () => (
+      <section className="h-full flex flex-col items-center justify-center text-center p-10 space-y-6">
+        <div className="text-6xl">👶</div>
+
+        <h1 className="text-3xl font-black text-slate-800">
+          Amenazas Biológicas Contemporáneas en Barranquilla
+        </h1>
+
+        <h2 className="text-lg text-slate-500">
+          Bajo Peso al Nacer (BPN): Herencia y Ambiente
+        </h2>
+
+        <div className="bg-slate-50 p-6 rounded-2xl max-w-xl w-full">
+          <p className="text-xs uppercase tracking-widest font-bold text-slate-400 mb-4">
+            Integrantes – CIA Unidad 1
+          </p>
+
+          <div className="grid grid-cols-2 md:grid-cols-3 gap-2 text-sm">
+            <div className="bg-white rounded-xl p-2 shadow-sm">Jose Florez</div>
+            <div className="bg-white rounded-xl p-2 shadow-sm">Isamara Tovio Torres</div>
+            <div className="bg-white rounded-xl p-2 shadow-sm">Sailly Arias</div>
+            <div className="bg-white rounded-xl p-2 shadow-sm">Valeria Castillo</div>
+            <div className="bg-white rounded-xl p-2 shadow-sm">Valerie</div>
           </div>
-        </aside>
+        </div>
 
-        {/* Content */}
-        <main className="flex-1 flex flex-col">
-          <div className="flex-1 overflow-hidden">
-            {slides[currentSlide].component}
-          </div>
+        <p className="text-sm text-slate-400 italic">
+          Presiona “Siguiente” para continuar (se habilita en el siguiente bloque)
+        </p>
+      </section>
+    );
 
-          <footer className="flex justify-between items-center px-8 py-4 border-t">
-            <button onClick={prev} disabled={currentSlide===0}
-              className="flex items-center gap-2 text-sm disabled:opacity-30">
-              <ChevronLeft /> Anterior
-            </button>
-
-            <button onClick={next} disabled={currentSlide===slides.length-1}
-              className="flex items-center gap-2 text-sm font-bold bg-slate-700 text-white px-5 py-2 rounded-xl disabled:opacity-30">
-              Siguiente <ChevronRight />
-            </button>
-          </footer>
-        </main>
-
-      </div>
-    </div>
-  );
-};
-
-/* ====== SLIDES ====== */
-
-const Cover = () => (
-  <section className="h-full flex flex-col items-center justify-center text-center p-10 space-y-6">
-    <Baby size={72} className="text-slate-700"/>
-    <h1 className="text-3xl font-black text-slate-800">
-      Amenazas Biológicas Contemporáneas en Barranquilla
-    </h1>
-    <h2 className="text-lg text-slate-500">
-      Bajo Peso al Nacer (BPN): Herencia y Ambiente
-    </h2>
-
-    <div className="bg-slate-50 p-6 rounded-2xl max-w-xl w-full">
-      <p className="text-xs uppercase tracking-widest font-bold text-slate-400 mb-4">
-        Integrantes – CIA Unidad 1
-      </p>
-      <div className="grid grid-cols-2 md:grid-cols-3 gap-2 text-sm">
-        {["Jose Florez","Isamara Tovio Torres","Sailly Arias","Valeria Castillo","Valerie"].map(n=>(
-          <div key={n} className="bg-white rounded-xl p-2 shadow-sm">{n}</div>
-        ))}
-      </div>
-    </div>
-  </section>
-);
-
-const Context = () => (
-  <section className="h-full p-8 space-y-6">
-    <h2 className="text-2xl font-black flex items-center gap-2">
-      <MapPin /> Contexto del Problema
-    </h2>
-
-    <p className="text-sm text-slate-600">
-      El Bajo Peso al Nacer es una amenaza biológica contemporánea que afecta el
-      desarrollo vitalicio. En Barranquilla se asocia a anemia materna y acceso limitado
-      a controles prenatales.
-    </p>
-
-    <ul className="text-sm list-disc pl-6 space-y-2 text-slate-600">
-      <li>OMS: 15–20% de recién nacidos presentan BPN.</li>
-      <li>Hospital Niño Jesús: alta relación con anemia materna.</li>
-      <li>Meta OMS 2025: reducción del 30%.</li>
-    </ul>
-  </section>
-);
-
-const Herencia = () => (
-  <section className="h-full p-8 space-y-4">
-    <h2 className="text-2xl font-black flex items-center gap-2">
-      <Dna /> Análisis de la Herencia
-    </h2>
-
-    <p className="text-sm text-slate-600">
-      Según Piaget (Feldman, 2007), el desarrollo parte de reflejos innatos y
-      maduración biológica. Alteraciones genéticas o teratógenos pueden limitar
-      la acción y la adaptación.
-    </p>
-
-    <p className="text-sm text-slate-600 italic">
-      Bronfenbrenner define la herencia como la constitución orgánica del sujeto,
-      base de su interacción con el ambiente.
-    </p>
-  </section>
-);
-
-const Ambiente = () => (
-  <section className="h-full p-8 space-y-4">
-    <h2 className="text-2xl font-black flex items-center gap-2">
-      <Home /> Análisis del Ambiente
-    </h2>
-
-    <ul className="text-sm text-slate-600 space-y-2 list-disc pl-6">
-      <li><strong>Microsistema:</strong> vivienda, higiene, contaminación.</li>
-      <li><strong>Mesosistema:</strong> familia y servicios de salud.</li>
-      <li><strong>Macrosistema:</strong> leyes, cultura y economía.</li>
-    </ul>
-
-    <blockquote className="text-sm italic text-slate-500 border-l-4 pl-4">
-      “El ambiente puede acelerar o limitar el desarrollo biológico”.
-    </blockquote>
-  </section>
-);
-
-const Interaccion = () => (
-  <section className="h-full p-8 space-y-4">
-    <h2 className="text-2xl font-black flex items-center gap-2">
-      <Activity /> Interacción Herencia–Ambiente
-    </h2>
-
-    <p className="text-sm text-slate-600">
-      Bronfenbrenner plantea que la conducta es función de la persona y el ambiente.
-      Erikson explica que un ambiente inestable puede afectar la confianza básica.
-    </p>
-
-    <p className="text-sm text-slate-600">
-      Piaget destaca la asimilación y acomodación como mecanismos de adaptación
-      frente a riesgos biológicos.
-    </p>
-  </section>
-);
-
-const Teorias = () => (
-  <section className="h-full p-8 space-y-4">
-    <h2 className="text-2xl font-black flex items-center gap-2">
-      <GraduationCap /> Sustento Teórico
-    </h2>
-
-    <p className="text-sm italic text-slate-600">
-      Papalia (2012): el desarrollo es vitalicio, multidimensional y multidireccional.
-    </p>
-
-    <ul className="text-xs text-slate-500 space-y-1">
-      <li>Erikson, E. (1950). Childhood and society.</li>
-      <li>Feldman, R. (2007). Desarrollo psicológico.</li>
-      <li>OMS (2014). Metas mundiales sobre BPN.</li>
-      <li>Papalia et al. (2012). Desarrollo humano.</li>
-      <li>Pérez Fernández (2004). Modelo ecológico.</li>
-    </ul>
-  </section>
-);
-
-ReactDOM.createRoot(document.getElementById("root")).render(<App />);
-</script>
+    ReactDOM.createRoot(document.getElementById("root")).render(<App />);
+  </script>
 </body>
 </html>
