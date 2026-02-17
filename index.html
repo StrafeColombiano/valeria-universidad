@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OVA: Amenaza Biológica - BPN</title>
+    <!-- Tailwind CSS para los estilos -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- React y Babel para ejecutar JSX en el navegador -->
+    <script src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;900&display=swap');
+        body { font-family: 'Inter', sans-serif; }
+    </style>
+</head>
+<body class="bg-[#F0F2F5]">
+    <div id="root"></div>
+
+    <script type="text/babel">
+        const { useState, useEffect } = React;
+
+        // Configuración de Datos
+        const DATA = {
+            tituloPrincipal: "Amenazas Biológicas",
+            tituloDestacado: "Contemporáneas en Barranquilla",
+            subtitulo: "Bajo Peso al Nacer (BPN): Herencia y Ambiente",
+            integrantes: ['Jose Florez', 'Isamara Tovio Torres', 'Sailly Arias', 'Valeria Castillo', 'Valerie'],
+            grupo: "Integrantes del CIA - Unidad 1",
+            cifras: { oms: "15-20%", local: "66%", meta: "-30%" }
+        };
+
+        // Componente de Icono (Adaptador para Lucide en Script)
+        const Icon = ({ name, size = 24, className = "" }) => {
+            useEffect(() => {
+                lucide.createIcons();
+            }, [name]);
+            return <i data-lucide={name} style={{width: size, height: size}} className={className}></i>;
+        };
+
+        const App = () => {
+            const [currentSlide, setCurrentSlide] = useState(0);
+
+            const nextSlide = () => setCurrentSlide(prev => Math.min(prev + 1, slides.length - 1));
+            const prevSlide = () => setCurrentSlide(prev => Math.max(prev - 1, 0));
+
+            const slides = [
+                { 
+                    title: "Inicio",
+                    content: (
+                        <div className="flex flex-col items-center justify-center h-full text-center space-y-6 p-10 bg-[#FFF9F9] rounded-3xl relative overflow-hidden">
+                            <div className="absolute top-0 right-0 w-64 h-64 bg-[#FDE2E4] rounded-full -mr-32 -mt-32 opacity-60 blur-3xl"></div>
+                            <div className="absolute bottom-0 left-0 w-64 h-64 bg-[#E2F0CB] rounded-full -ml-32 -mb-32 opacity-60 blur-3xl"></div>
+                            <div className="relative">
+                                <div className="bg-white p-8 rounded-full shadow-lg relative border-4 border-[#FFD1DC]">
+                                    <Icon name="baby" size={80} className="text-[#FF91A4]" />
+                                </div>
+                                <Icon name="sparkles" className="absolute -top-2 -right-2 text-[#FFB7B2]" />
+                            </div>
+                            <div className="space-y-2 relative z-10">
+                                <h1 className="text-4xl font-black text-[#5C5C5C] tracking-tight leading-tight">
+                                    {DATA.tituloPrincipal} <span className="text-[#FF91A4] text-3xl block italic">{DATA.tituloDestacado}</span>
+                                </h1>
+                                <div className="h-1.5 w-32 bg-[#FFD1DC] mx-auto rounded-full"></div>
+                                <h2 className="text-xl font-medium text-[#7A7A7A]">{DATA.subtitulo}</h2>
+                            </div>
+                            <div className="bg-white/80 backdrop-blur-sm p-6 rounded-3xl shadow-sm border border-[#FFD1DC] max-w-2xl w-full relative z-10">
+                                <p className="text-[10px] font-bold text-[#AFAFAF] uppercase tracking-[0.2em] mb-4">{DATA.grupo}</p>
+                                <div className="grid grid-cols-2 md:grid-cols-3 gap-3 text-xs text-[#5C5C5C] font-semibold">
+                                    {DATA.integrantes.map((name, i) => (
+                                        <div key={i} className="bg-[#FFF0F3] p-2 rounded-xl border border-[#FFD1DC]/30 shadow-sm">{name}</div>
+                                    ))}
+                                </div>
+                            </div>
+                            <button onClick={nextSlide} className="px-12 py-4 bg-[#FF91A4] text-white rounded-2xl font-black hover:bg-[#FF7A8F] transition-all shadow-lg shadow-[#FF91A4]/20 flex items-center gap-3 group">
+                                INICIAR OVA <Icon name="chevron-right" size={20} />
+                            </button>
+                        </div>
+                    )
+                },
+                {
+                    title: "Contexto",
+                    content: (
+                        <div className="h-full p-8 flex flex-col bg-white">
+                            <h2 className="text-3xl font-black text-[#5C5C5C] mb-6 flex items-center gap-3">
+                                <Icon name="map-pin" className="text-[#FF91A4]" /> Contexto del Problema
+                            </h2>
+                            <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
+                                <div className="bg-[#E2F0CB] p-6 rounded-3xl border-b-4 border-[#C5D9A5]">
+                                    <Icon name="globe" className="text-[#6B8E23] mb-2" />
+                                    <h4 className="font-bold text-[#4B611F] text-sm">OMS: Prevalencia</h4>
+                                    <p className="text-3xl font-black text-[#6B8E23]">{DATA.cifras.oms}</p>
+                                    <p className="text-[10px] text-[#4B611F] mt-1">Más de 20 millones de bebés nacen con peso {'<'} 2500g cada año.</p>
+                                </div>
+                                <div className="bg-[#FFD1DC] p-6 rounded-3xl border-b-4 border-[#FFB7C5]">
+                                    <Icon name="shield-alert" className="text-[#D66A7D] mb-2" />
+                                    <h4 className="font-bold text-[#8C3D4D] text-sm">Cifras Locales</h4>
+                                    <p className="text-3xl font-black text-[#D66A7D]">{DATA.cifras.local}</p>
+                                    <p className="text-[10px] text-[#8C3D4D] mt-1">Hospital Niño Jesús: Prevalencia ligada a anemia materna.</p>
+                                </div>
+                                <div className="bg-[#FDF4DC] p-6 rounded-3xl border-b-4 border-[#F5E1A4]">
+                                    <Icon name="stethoscope" className="text-[#B89B3D] mb-2" />
+                                    <h4 className="font-bold text-[#7A6729] text-sm">Meta 2025</h4>
+                                    <p className="text-3xl font-black text-[#B89B3D]">{DATA.cifras.meta}</p>
+                                    <p className="text-[10px] text-[#7A6729] mt-1">Meta global de la OMS para reducción de BPN en recién nacidos.</p>
+                                </div>
+                            </div>
+                            <div className="bg-[#F9FAFB] p-6 rounded-3xl border border-[#E5E7EB] flex-1">
+                                <h3 className="font-bold text-[#5C5C5C] mb-3 flex items-center gap-2 italic text-sm">Justificación de la Amenaza</h3>
+                                <p className="text-xs text-[#7A7A7A] leading-relaxed">
+                                    El BPN es una amenaza biológica contemporánea porque impacta el desarrollo vitalicio. En Barranquilla, factores como la nutrición materna y el acceso a salud prenatal convierten esta condición física en un riesgo acumulativo que afecta dimensiones cognitivas y socioemocionales desde el inicio de la vida.
+                                </p>
+                            </div>
+                        </div>
+                    )
+                },
+                {
+                    title: "Herencia",
+                    content: (
+                        <div className="h-full p-8 overflow-y-auto bg-white text-sm">
+                            <h2 className="text-3xl font-black text-[#5C5C5C] mb-6 flex items-center gap-3">
+                                <Icon name="dna" className="text-[#B5EAD7]" /> Análisis de la Herencia
+                            </h2>
+                            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                                <div className="bg-[#EFFFFB] p-6 rounded-3xl border-l-8 border-[#B5EAD7] shadow-sm">
+                                    <h3 className="font-black text-[#4B7C6C] flex items-center gap-2 mb-4">
+                                        <Icon name="brain" size={18} /> Modelo de Piaget
+                                    </h3>
+                                    <ul className="text-xs text-[#4B7C6C] space-y-3">
+                                        <li>• <strong>Reflejos innatos:</strong> Equipamiento biológico base.</li>
+                                        <li>• <strong>Maduración física:</strong> El paso de etapas depende de la integridad del cuerpo.</li>
+                                        <li>• <strong>Talidomida:</strong> Daño biológico que limita la acción.</li>
+                                    </ul>
+                                </div>
+                                <div className="bg-[#F8F9FA] p-6 rounded-3xl border border-[#E9ECEF]">
+                                    <h3 className="font-bold text-[#5C5C5C] text-xs uppercase mb-4">Perspectiva Orgánica</h3>
+                                    <p className="text-xs text-[#7A7A7A] leading-relaxed">Según Bronfenbrenner, la herencia es la "constitución orgánica" y capacidad de adaptación.</p>
+                                </div>
+                            </div>
+                        </div>
+                    )
+                }
+                // ... Se pueden añadir el resto de diapositivas siguiendo el mismo patrón
+            ];
+
+            return (
+                <div className="w-full h-screen flex items-center justify-center p-4">
+                    <div className="w-full max-w-5xl h-[650px] bg-white rounded-[48px] shadow-2xl overflow-hidden flex flex-col md:flex-row border border-white">
+                        
+                        {/* Sidebar */}
+                        <div className="hidden md:flex flex-col w-64 bg-[#FAFBFD] border-r border-[#F0F2F5] p-8 justify-between">
+                            <div className="space-y-10">
+                                <div className="flex items-center gap-3 px-2">
+                                    <div className="w-10 h-10 bg-[#FFD1DC] rounded-2xl flex items-center justify-center text-[#FF91A4] shadow-sm">
+                                        <Icon name="sparkles" size={20} />
+                                    </div>
+                                    <div className="leading-none">
+                                        <p className="text-[10px] font-black text-[#AFAFAF] uppercase tracking-widest">OVA</p>
+                                        <p className="text-base font-black text-[#5C5C5C]">Desarrollo</p>
+                                    </div>
+                                </div>
+                                <nav className="space-y-2">
+                                    {slides.map((slide, index) => (
+                                        <button key={index} onClick={() => setCurrentSlide(index)}
+                                            className={`w-full text-left px-5 py-3 rounded-2xl transition-all text-xs flex items-center gap-4 ${currentSlide === index ? 'bg-white text-[#FF91A4] font-bold shadow-lg scale-105' : 'text-[#AFAFAF] hover:text-[#5C5C5C]'}`}>
+                                            <span className={`w-1.5 h-1.5 rounded-full ${currentSlide === index ? 'bg-[#FF91A4]' : 'bg-[#E5E7EB]'}`}></span>
+                                            {slide.title}
+                                        </button>
+                                    ))}
+                                </nav>
+                            </div>
+                        </div>
+
+                        {/* Main Content */}
+                        <div className="flex-1 flex flex-col h-full bg-white">
+                            <div className="flex-1 relative overflow-hidden">
+                                {slides[currentSlide].content}
+                            </div>
+                            
+                            {/* Footer Controls */}
+                            <div className="flex justify-between items-center px-10 py-6 bg-white border-t border-[#F0F2F5]">
+                                <button onClick={prevSlide} disabled={currentSlide === 0}
+                                    className={`flex items-center gap-2 px-4 py-2 rounded-xl font-bold text-[10px] uppercase ${currentSlide === 0 ? 'text-gray-200' : 'text-gray-500 hover:bg-gray-50'}`}>
+                                    <Icon name="chevron-left" size={16} /> Anterior
+                                </button>
+                                <div className="flex gap-2">
+                                    {slides.map((_, i) => (
+                                        <div key={i} className={`h-1.5 rounded-full transition-all ${currentSlide === i ? 'w-8 bg-[#FFD1DC]' : 'w-2 bg-gray-100'}`}></div>
+                                    ))}
+                                </div>
+                                <button onClick={nextSlide} disabled={currentSlide === slides.length - 1}
+                                    className={`flex items-center gap-2 px-6 py-2 rounded-xl font-bold text-[10px] uppercase ${currentSlide === slides.length - 1 ? 'text-gray-200' : 'bg-[#FF91A4] text-white shadow-md'}`}>
+                                    Siguiente <Icon name="chevron-right" size={16} />
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            );
+        };
+
+        const root = ReactDOM.createRoot(document.getElementById('root'));
+        root.render(<App />);
+    </script>
+</body>
+</html>
