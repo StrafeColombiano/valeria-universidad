@@ -25,19 +25,17 @@
   <script type="text/babel">
     const { useState } = React;
 
-    const ArrowRight = () => (
-      <span className="text-xl font-black">→</span>
-    );
-    const ArrowLeft = () => (
-      <span className="text-xl font-black">←</span>
-    );
+    const ArrowRight = () => <span className="text-xl font-black">→</span>;
+    const ArrowLeft = () => <span className="text-xl font-black">←</span>;
 
     const App = () => {
       const [slide, setSlide] = useState(0);
 
       const slides = [
+
+        /* PORTADA */
         (
-          <div className="h-full flex flex-col justify-center items-center text-center bg-[#FFF9F9] p-10 rounded-3xl">
+          <div className="h-full flex flex-col justify-center items-center text-center bg-[#FFF9F9] p-10 rounded-3xl space-y-6">
             <h1 className="text-4xl font-black text-[#5C5C5C]">
               Amenazas Biológicas
               <span className="block text-[#FF91A4] italic">
@@ -45,69 +43,133 @@
               </span>
             </h1>
 
-            <p className="mt-4 text-lg text-[#7A7A7A]">
+            <h2 className="text-xl text-[#7A7A7A]">
               Bajo Peso al Nacer (BPN): Herencia y Ambiente
-            </p>
+            </h2>
+
+            <div className="bg-white p-6 rounded-2xl shadow text-sm max-w-xl">
+              <p className="font-bold mb-2 text-[#5C5C5C]">Integrantes – CIA Unidad 1</p>
+              <ul className="grid grid-cols-2 gap-2 text-[#7A7A7A]">
+                <li>• Jose Florez</li>
+                <li>• Isamara Tovio Torres</li>
+                <li>• Sailly Arias</li>
+                <li>• Valeria Castillo</li>
+                <li>• Valerie</li>
+              </ul>
+            </div>
 
             <button
               onClick={() => setSlide(1)}
-              className="mt-8 px-10 py-4 bg-[#FF91A4] text-white rounded-2xl font-black hover:bg-[#FF7A8F]"
+              className="px-10 py-4 bg-[#FF91A4] text-white rounded-2xl font-black hover:bg-[#FF7A8F]"
             >
               INICIAR OVA →
             </button>
           </div>
         ),
+
+        /* CONTEXTO */
         (
-          <div className="p-10">
-            <h2 className="text-3xl font-black mb-4">Contexto del Problema</h2>
+          <div className="p-10 space-y-4">
+            <h2 className="text-3xl font-black">Contexto del Problema</h2>
             <p className="text-sm text-[#7A7A7A]">
-              El Bajo Peso al Nacer afecta entre el 15% y 20% de los recién nacidos
-              a nivel mundial. En Barranquilla, se relaciona con anemia materna
-              y acceso limitado a controles prenatales.
+              El Bajo Peso al Nacer (BPN) afecta entre el 15% y 20% de los recién nacidos
+              a nivel mundial, lo que representa más de 20 millones de bebés cada año.
+            </p>
+            <p className="text-sm text-[#7A7A7A]">
+              En Barranquilla, estudios locales señalan una prevalencia cercana al 66% en
+              poblaciones vulnerables, asociada principalmente a anemia materna,
+              desnutrición y acceso limitado a controles prenatales.
+            </p>
+            <p className="text-sm text-[#7A7A7A]">
+              La OMS estableció como meta global reducir el BPN en un 30% para el año 2025,
+              reconociendo su impacto a largo plazo en la salud y el desarrollo humano.
             </p>
           </div>
         ),
+
+        /* HERENCIA */
         (
-          <div className="p-10">
-            <h2 className="text-3xl font-black mb-4">Herencia</h2>
-            <p className="text-sm">
-              Según Piaget, la maduración biológica es clave para el desarrollo.
-              El BPN puede limitar la exploración y la adaptación temprana.
+          <div className="p-10 space-y-4">
+            <h2 className="text-3xl font-black">Análisis de la Herencia</h2>
+            <p className="text-sm text-[#7A7A7A]">
+              Desde la perspectiva de Piaget (Feldman, 2007), el desarrollo infantil se
+              fundamenta en la maduración biológica y en los reflejos innatos que permiten
+              la interacción inicial con el entorno.
+            </p>
+            <p className="text-sm text-[#7A7A7A]">
+              El Bajo Peso al Nacer puede afectar esta base biológica, limitando la
+              exploración temprana, la fuerza física y la capacidad de adaptación en las
+              primeras etapas del desarrollo.
+            </p>
+            <p className="text-sm italic text-[#6B7280]">
+              Bronfenbrenner define la herencia como la “constitución orgánica” del sujeto,
+              que debe ajustarse constantemente a un medio demandante.
             </p>
           </div>
         ),
+
+        /* AMBIENTE */
         (
-          <div className="p-10">
-            <h2 className="text-3xl font-black mb-4">Ambiente</h2>
-            <p className="text-sm">
-              Bronfenbrenner explica que el entorno familiar, social y cultural
-              influye directamente en el desarrollo infantil.
+          <div className="p-10 space-y-4">
+            <h2 className="text-3xl font-black">Análisis del Ambiente</h2>
+            <p className="text-sm text-[#7A7A7A]">
+              Según el modelo ecológico de Bronfenbrenner, el desarrollo humano está
+              influenciado por múltiples sistemas ambientales.
             </p>
-          </div>
-        ),
-        (
-          <div className="p-10">
-            <h2 className="text-3xl font-black mb-4">Interacción</h2>
-            <p className="text-sm">
-              Un ambiente favorable puede compensar riesgos biológicos
-              y favorecer la adaptación.
-            </p>
-          </div>
-        ),
-        (
-          <div className="p-10">
-            <h2 className="text-3xl font-black mb-4">Sustento Teórico</h2>
+            <ul className="text-sm text-[#7A7A7A] space-y-2">
+              <li><strong>Microsistema:</strong> condiciones del hogar, higiene y cuidado materno.</li>
+              <li><strong>Mesosistema:</strong> relación entre familia y servicios de salud.</li>
+              <li><strong>Macrosistema:</strong> políticas públicas, cultura y nivel socioeconómico.</li>
+            </ul>
             <p className="text-sm italic">
-              Papalia (2012): el desarrollo es vitalicio, multidimensional
-              y multidireccional.
+              El ambiente puede acelerar o retrasar el desarrollo, incluso cuando existen
+              riesgos biológicos.
             </p>
+          </div>
+        ),
+
+        /* INTERACCIÓN */
+        (
+          <div className="p-10 space-y-4">
+            <h2 className="text-3xl font-black">Interacción Herencia – Ambiente</h2>
+            <p className="text-sm text-[#7A7A7A]">
+              La conducta y el desarrollo son el resultado de la interacción constante
+              entre la persona y su ambiente (Conducta = f [P ↔ A]).
+            </p>
+            <p className="text-sm text-[#7A7A7A]">
+              Erikson señala que en la etapa de confianza vs. desconfianza, un entorno
+              inestable combinado con BPN puede afectar el vínculo y la seguridad emocional.
+            </p>
+            <p className="text-sm italic">
+              Un ambiente favorable puede mitigar riesgos biológicos severos y permitir un
+              desarrollo cognitivo y socioemocional adecuado.
+            </p>
+          </div>
+        ),
+
+        /* TEORÍAS */
+        (
+          <div className="p-10 space-y-4">
+            <h2 className="text-3xl font-black">Sustento Teórico</h2>
+            <p className="text-sm italic text-[#7A7A7A]">
+              Papalia (2012) afirma que el desarrollo humano es vitalicio, multidimensional
+              y multidireccional, y que los cambios en una dimensión influyen en las demás.
+            </p>
+
+            <div className="text-xs text-[#6B7280] space-y-1">
+              <p>• Erikson, E. (1950). Childhood and Society.</p>
+              <p>• Feldman, R. (2007). Desarrollo Psicológico.</p>
+              <p>• Papalia, D. et al. (2012). Desarrollo Humano.</p>
+              <p>• OMS (2014). Metas globales sobre BPN.</p>
+              <p>• Pérez Fernández (2004). Modelo ecológico de Bronfenbrenner.</p>
+            </div>
           </div>
         )
       ];
 
       return (
         <div className="w-full h-screen flex flex-col bg-white max-w-4xl mx-auto shadow-xl rounded-3xl overflow-hidden">
-          <div className="flex-1">{slides[slide]}</div>
+          <div className="flex-1 overflow-y-auto">{slides[slide]}</div>
 
           <div className="flex justify-between items-center p-4 border-t">
             <button
