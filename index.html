@@ -1,187 +1,197 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>OVA: Amenaza Biológica - BPN</title>
-    <!-- Tailwind CSS para diseño rápido y seguro -->
-    <script src="https://cdn.tailwindcss.com"></script>
-    <!-- React y Motores básicos -->
-    <script src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
-    <script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
-    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
-    <style>
-        @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;800&display=swap');
-        
-        body { 
-            font-family: 'Plus Jakarta Sans', sans-serif; 
-            background-color: #F3F4F6;
-            margin: 0;
-            padding: 0;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            min-height: 100vh;
-        }
+  <meta charset="UTF-8" />
+  <title>OVA – Bajo Peso al Nacer</title>
 
-        /* Scroll personalizado sencillo */
-        .custom-scroll::-webkit-scrollbar { width: 4px; }
-        .custom-scroll::-webkit-scrollbar-thumb { background: #E5E7EB; border-radius: 10px; }
+  <!-- Tailwind -->
+  <script src="https://cdn.tailwindcss.com"></script>
 
-        /* Botones sin efectos de transformación pesados para evitar lag */
-        button:active { opacity: 0.8; }
-    </style>
+  <!-- React -->
+  <script crossorigin src="https://unpkg.com/react@18/umd/react.development.js"></script>
+  <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+
+  <!-- Babel -->
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+
+  <!-- Lucide -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+
+  <style>
+    html, body {
+      height: 100%;
+    }
+  </style>
 </head>
-<body>
-    <div id="root" class="w-full flex justify-center p-4"></div>
 
-    <script type="text/babel">
-        const { useState } = React;
+<body class="bg-[#F0F2F5]">
+  <div id="root"></div>
 
-        // Iconos SVG integrados directamente para evitar fallos de carga externa
-        const IconChevron = ({ dir = "right" }) => (
-            <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                {dir === "right" ? <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" /> : <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />}
-            </svg>
-        );
+  <script type="text/babel">
+    const { useState } = React;
+    const {
+      Baby, Dna, Globe, Brain,
+      ChevronRight, ChevronLeft, Home, Activity,
+      ShieldAlert, GraduationCap, MapPin,
+      Stethoscope, Quote, Sparkles
+    } = lucideReact;
 
-        const App = () => {
-            const [currentSlide, setCurrentSlide] = useState(0);
+    const App = () => {
+      const [currentSlide, setCurrentSlide] = useState(0);
 
-            const slides = [
-                { 
-                    title: "Inicio",
-                    content: (
-                        <div className="flex flex-col items-center justify-center h-full text-center space-y-6">
-                            <div className="w-24 h-24 bg-pink-100 rounded-full flex items-center justify-center text-pink-500 mb-4">
-                                <svg className="w-12 h-12" fill="currentColor" viewBox="0 0 20 20"><path d="M10 2a6 6 0 00-6 6v3.586l-.707.707A1 1 0 004 14h12a1 1 0 00.707-1.707L16 11.586V8a6 6 0 00-6-6zM10 18a3 3 0 01-3-3h6a3 3 0 01-3 3z" /></svg>
-                            </div>
-                            <h1 className="text-3xl font-extrabold text-gray-800">Amenazas Biológicas en Barranquilla</h1>
-                            <p className="text-lg text-gray-500 max-w-md">Estudio sobre el Bajo Peso al Nacer (BPN), Herencia y Ambiente.</p>
-                            <div className="bg-white p-4 rounded-xl border border-pink-100 w-full max-w-sm">
-                                <p className="text-[10px] font-bold text-pink-300 uppercase mb-2">Integrantes</p>
-                                <p className="text-xs text-gray-600">Jose Florez, Isamara Tovio, Sailly Arias, Valeria Castillo, Valerie.</p>
-                            </div>
-                            <button 
-                                onClick={() => setCurrentSlide(1)}
-                                className="mt-4 px-10 py-3 bg-pink-500 text-white rounded-xl font-bold flex items-center gap-2 hover:bg-pink-600 transition-colors"
-                            >
-                                INICIAR <IconChevron />
-                            </button>
-                        </div>
-                    )
-                },
-                {
-                    title: "Contexto",
-                    content: (
-                        <div className="space-y-6">
-                            <h2 className="text-2xl font-bold text-gray-800 border-b-2 border-pink-100 pb-2">Contexto del Problema</h2>
-                            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                                <div className="bg-green-50 p-4 rounded-2xl border-l-4 border-green-400">
-                                    <p className="text-2xl font-black text-green-700">15-20%</p>
-                                    <p className="text-xs text-green-800">Prevalencia mundial de casos de BPN según la OMS.</p>
-                                </div>
-                                <div className="bg-pink-50 p-4 rounded-2xl border-l-4 border-pink-400">
-                                    <p className="text-2xl font-black text-pink-700">66%</p>
-                                    <p className="text-xs text-pink-800">Relación con anemia materna en Barranquilla.</p>
-                                </div>
-                            </div>
-                            <div className="bg-gray-50 p-6 rounded-2xl italic text-gray-600 text-sm">
-                                "El BPN es una condición donde el neonato pesa menos de 2500g, afectando su desarrollo cognitivo y físico a largo plazo."
-                            </div>
-                        </div>
-                    )
-                },
-                {
-                    title: "Herencia",
-                    content: (
-                        <div className="space-y-6">
-                            <h2 className="text-2xl font-bold text-gray-800 border-b-2 border-green-100 pb-2">La Herencia (Piaget)</h2>
-                            <div className="bg-white border border-gray-100 p-5 rounded-2xl shadow-sm">
-                                <h3 className="font-bold text-green-600 mb-3">Factores Biológicos</h3>
-                                <ul className="text-sm text-gray-600 space-y-3">
-                                    <li className="flex gap-2"><span>•</span> <strong>Reflejos:</strong> El equipo genético inicial del bebé.</li>
-                                    <li className="flex gap-2"><span>•</span> <strong>Maduración:</strong> El cerebro requiere salud orgánica para aprender.</li>
-                                    <li className="flex gap-2"><span>•</span> <strong>Teratógenos:</strong> Factores externos que dañan la herencia biológica.</li>
-                                </ul>
-                            </div>
-                            <p className="text-sm text-gray-500 leading-relaxed">
-                                Según Bronfenbrenner, la herencia es la "constitución orgánica" del sujeto, la base necesaria para la interacción.
-                            </p>
-                        </div>
-                    )
-                },
-                {
-                    title: "Ambiente",
-                    content: (
-                        <div className="space-y-6">
-                            <h2 className="text-2xl font-bold text-gray-800 border-b-2 border-blue-100 pb-2">El Ambiente</h2>
-                            <div className="grid grid-cols-1 gap-3">
-                                <div className="p-4 bg-blue-50 rounded-xl">
-                                    <p className="text-sm"><strong>Microsistema:</strong> El hogar y la alimentación inmediata.</p>
-                                </div>
-                                <div className="p-4 bg-purple-50 rounded-xl">
-                                    <p className="text-sm"><strong>Exosistema:</strong> Las políticas de salud en Barranquilla.</p>
-                                </div>
-                            </div>
-                            <div className="bg-orange-50 p-5 rounded-2xl border border-orange-100">
-                                <p className="text-sm text-orange-800 italic">"El ambiente puede ser un factor protector que compense el riesgo biológico inicial."</p>
-                            </div>
-                        </div>
-                    )
-                }
-            ];
+      /* ---------- SLIDES ---------- */
 
-            return (
-                <div className="bg-white w-full max-w-4xl rounded-[32px] shadow-xl overflow-hidden flex flex-col md:flex-row min-h-[500px]">
-                    {/* Menú lateral */}
-                    <div className="w-full md:w-48 bg-gray-50 p-6 flex flex-row md:flex-col gap-2 overflow-x-auto md:overflow-x-visible">
-                        {slides.map((s, i) => (
-                            <button 
-                                key={i}
-                                onClick={() => setCurrentSlide(i)}
-                                className={`px-4 py-2 rounded-lg text-xs font-bold transition-colors whitespace-nowrap ${
-                                    currentSlide === i ? 'bg-pink-500 text-white' : 'text-gray-400 hover:bg-gray-200'
-                                }`}
-                            >
-                                {s.title}
-                            </button>
-                        ))}
-                    </div>
+      const Cover = () => (
+        <div className="flex flex-col items-center justify-center h-full text-center space-y-6 p-10 bg-[#FFF9F9] rounded-3xl relative overflow-hidden">
+          <div className="absolute top-0 right-0 w-64 h-64 bg-[#FDE2E4] rounded-full -mr-32 -mt-32 opacity-60 blur-3xl pointer-events-none"></div>
+          <div className="absolute bottom-0 left-0 w-64 h-64 bg-[#E2F0CB] rounded-full -ml-32 -mb-32 opacity-60 blur-3xl pointer-events-none"></div>
 
-                    {/* Contenido principal */}
-                    <div className="flex-1 flex flex-col">
-                        <div className="flex-1 p-8 md:p-12 overflow-y-auto custom-scroll">
-                            {slides[currentSlide].content}
-                        </div>
+          <div className="relative">
+            <div className="bg-white p-8 rounded-full shadow-lg border-4 border-[#FFD1DC]">
+              <Baby size={80} className="text-[#FF91A4]" />
+            </div>
+            <Sparkles className="absolute -top-2 -right-2 text-[#FFB7B2]" />
+          </div>
 
-                        {/* Navegación inferior */}
-                        <div className="p-6 border-t border-gray-100 flex items-center justify-between">
-                            <button 
-                                onClick={() => setCurrentSlide(Math.max(0, currentSlide - 1))}
-                                className={`p-2 rounded-full ${currentSlide === 0 ? 'text-gray-200' : 'text-gray-400 hover:bg-gray-100'}`}
-                            >
-                                <IconChevron dir="left" />
-                            </button>
-                            
-                            <span className="text-[10px] font-bold text-gray-300 uppercase tracking-widest">
-                                Diapositiva {currentSlide + 1} de {slides.length}
-                            </span>
+          <h1 className="text-4xl font-black text-[#5C5C5C]">
+            Amenazas Biológicas
+            <span className="block text-[#FF91A4] text-3xl italic">
+              Contemporáneas en Barranquilla
+            </span>
+          </h1>
 
-                            <button 
-                                onClick={() => setCurrentSlide(Math.min(slides.length - 1, currentSlide + 1))}
-                                className={`p-2 rounded-full ${currentSlide === slides.length - 1 ? 'text-gray-200' : 'text-pink-500 hover:bg-pink-50'}`}
-                            >
-                                <IconChevron dir="right" />
-                            </button>
-                        </div>
-                    </div>
-                </div>
-            );
-        };
+          <h2 className="text-xl text-[#7A7A7A]">
+            Bajo Peso al Nacer (BPN): Herencia y Ambiente
+          </h2>
 
-        const root = ReactDOM.createRoot(document.getElementById('root'));
-        root.render(<App />);
-    </script>
+          <button
+            onClick={() => setCurrentSlide(1)}
+            className="px-12 py-4 bg-[#FF91A4] text-white rounded-2xl font-black flex items-center gap-3 hover:bg-[#FF7A8F]"
+          >
+            INICIAR OVA <ChevronRight size={20} />
+          </button>
+        </div>
+      );
+
+      const Context = () => (
+        <div className="p-8 h-full bg-white space-y-6">
+          <h2 className="text-3xl font-black flex items-center gap-3">
+            <MapPin className="text-[#FF91A4]" /> Contexto del Problema
+          </h2>
+
+          <div className="grid md:grid-cols-3 gap-4">
+            <div className="bg-[#E2F0CB] p-6 rounded-3xl">
+              <Globe className="mb-2" />
+              <p className="text-3xl font-black">15–20%</p>
+              <p className="text-xs">Más de 20 millones de bebés nacen con BPN cada año.</p>
+            </div>
+            <div className="bg-[#FFD1DC] p-6 rounded-3xl">
+              <ShieldAlert className="mb-2" />
+              <p className="text-3xl font-black">66%</p>
+              <p className="text-xs">Prevalencia ligada a anemia materna.</p>
+            </div>
+            <div className="bg-[#FDF4DC] p-6 rounded-3xl">
+              <Stethoscope className="mb-2" />
+              <p className="text-3xl font-black">-30%</p>
+              <p className="text-xs">Meta OMS para 2025.</p>
+            </div>
+          </div>
+
+          <p className="text-sm text-[#7A7A7A]">
+            El BPN representa una amenaza biológica contemporánea que impacta
+            el desarrollo cognitivo, físico y socioemocional desde el inicio de la vida.
+          </p>
+        </div>
+      );
+
+      const Herencia = () => (
+        <div className="p-8 h-full bg-white space-y-4">
+          <h2 className="text-3xl font-black flex items-center gap-3">
+            <Dna className="text-[#B5EAD7]" /> Análisis de la Herencia
+          </h2>
+          <p className="text-sm">
+            Según Piaget, el desarrollo depende de la maduración biológica.
+            El bajo peso al nacer puede limitar la exploración y la adaptación inicial.
+          </p>
+        </div>
+      );
+
+      const Ambiente = () => (
+        <div className="p-8 h-full bg-white space-y-4">
+          <h2 className="text-3xl font-black flex items-center gap-3">
+            <Home className="text-[#E2F0CB]" /> Análisis del Ambiente
+          </h2>
+          <p className="text-sm">
+            Bronfenbrenner explica cómo el entorno familiar, social y cultural
+            puede potenciar o limitar el desarrollo infantil.
+          </p>
+        </div>
+      );
+
+      const Interaccion = () => (
+        <div className="p-8 h-full bg-white space-y-4">
+          <h2 className="text-3xl font-black flex items-center gap-3">
+            <Activity className="text-[#FFB7B2]" /> Interacción Herencia–Ambiente
+          </h2>
+          <p className="text-sm">
+            Un ambiente favorable puede compensar riesgos biológicos,
+            promoviendo adaptación y desarrollo saludable.
+          </p>
+        </div>
+      );
+
+      const Teorias = () => (
+        <div className="p-8 h-full bg-white space-y-4">
+          <h2 className="text-3xl font-black flex items-center gap-3">
+            <GraduationCap /> Sustento Teórico
+          </h2>
+          <p className="text-sm italic">
+            Papalia (2012): el desarrollo es vitalicio, multidimensional y multidireccional.
+          </p>
+        </div>
+      );
+
+      const slides = [
+        <Cover />,
+        <Context />,
+        <Herencia />,
+        <Ambiente />,
+        <Interaccion />,
+        <Teorias />
+      ];
+
+      return (
+        <div className="w-full h-screen flex flex-col">
+          <div className="flex-1 overflow-hidden">
+            {slides[currentSlide]}
+          </div>
+
+          <div className="flex justify-between items-center p-4 bg-white border-t">
+            <button
+              onClick={() => setCurrentSlide(s => Math.max(s - 1, 0))}
+              disabled={currentSlide === 0}
+              className="px-4 py-2 rounded bg-gray-100 disabled:opacity-40"
+            >
+              <ChevronLeft />
+            </button>
+
+            <span className="text-xs">
+              {currentSlide + 1} / {slides.length}
+            </span>
+
+            <button
+              onClick={() => setCurrentSlide(s => Math.min(s + 1, slides.length - 1))}
+              disabled={currentSlide === slides.length - 1}
+              className="px-4 py-2 rounded bg-[#FF91A4] text-white disabled:opacity-40"
+            >
+              <ChevronRight />
+            </button>
+          </div>
+        </div>
+      );
+    };
+
+    ReactDOM.createRoot(document.getElementById("root")).render(<App />);
+  </script>
 </body>
 </html>
