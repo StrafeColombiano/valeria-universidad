@@ -45,13 +45,19 @@
             background: #E5E7EB;
             border-radius: 10px;
         }
+
+        /* Asegurar que los botones sean siempre interactuables */
+        button {
+            cursor: pointer !important;
+            pointer-events: auto !important;
+        }
     </style>
 </head>
 <body>
     <div id="root" class="w-full max-w-6xl"></div>
 
     <script type="text/babel">
-        const { useState, useEffect, useMemo } = React;
+        const { useState, useEffect, useCallback } = React;
 
         const Icon = ({ name, size = 24, className = "" }) => {
             useEffect(() => {
@@ -65,26 +71,30 @@
         const App = () => {
             const [currentSlide, setCurrentSlide] = useState(0);
 
-            const nextSlide = () => {
+            const nextSlide = useCallback(() => {
                 setCurrentSlide(prev => (prev < slides.length - 1 ? prev + 1 : prev));
-            };
-            const prevSlide = () => {
+            }, []);
+
+            const prevSlide = useCallback(() => {
                 setCurrentSlide(prev => (prev > 0 ? prev - 1 : prev));
-            };
+            }, []);
 
             const slides = [
                 { 
                     title: "Inicio",
                     content: (
                         <div className="flex flex-col items-center justify-center h-full text-center space-y-6 p-10 bg-[#FFF9F9] rounded-[48px] relative overflow-hidden slide-enter">
-                            <div className="absolute top-0 right-0 w-64 h-64 bg-[#FDE2E4] rounded-full -mr-32 -mt-32 opacity-60 blur-3xl"></div>
-                            <div className="absolute bottom-0 left-0 w-64 h-64 bg-[#E2F0CB] rounded-full -ml-32 -mb-32 opacity-60 blur-3xl"></div>
-                            <div className="relative">
+                            {/* Decoraciones de fondo con z-index bajo */}
+                            <div className="absolute top-0 right-0 w-64 h-64 bg-[#FDE2E4] rounded-full -mr-32 -mt-32 opacity-60 blur-3xl z-0"></div>
+                            <div className="absolute bottom-0 left-0 w-64 h-64 bg-[#E2F0CB] rounded-full -ml-32 -mb-32 opacity-60 blur-3xl z-0"></div>
+                            
+                            <div className="relative z-10">
                                 <div className="bg-white p-8 rounded-full shadow-lg relative border-4 border-[#FFD1DC]">
                                     <Icon name="baby" size={80} className="text-[#FF91A4]" />
                                 </div>
                                 <Icon name="sparkles" className="absolute -top-2 -right-2 text-[#FFB7B2]" />
                             </div>
+
                             <div className="space-y-2 relative z-10">
                                 <h1 className="text-4xl font-[800] text-[#5C5C5C] tracking-tight leading-tight">
                                     Amenazas Biológicas <span className="text-[#FF91A4] text-3xl block italic font-[700]">Contemporáneas en Barranquilla</span>
@@ -92,6 +102,7 @@
                                 <div className="h-1.5 w-32 bg-[#FFD1DC] mx-auto rounded-full"></div>
                                 <h2 className="text-xl font-medium text-[#7A7A7A]">Bajo Peso al Nacer (BPN): Herencia y Ambiente</h2>
                             </div>
+
                             <div className="bg-white/80 backdrop-blur-sm p-6 rounded-3xl shadow-sm border border-[#FFD1DC] max-w-2xl w-full relative z-10">
                                 <p className="text-[10px] font-bold text-[#AFAFAF] uppercase tracking-[0.2em] mb-4">Integrantes del CIA - Unidad 1</p>
                                 <div className="grid grid-cols-2 md:grid-cols-3 gap-3 text-xs text-[#5C5C5C] font-semibold">
@@ -100,9 +111,10 @@
                                     ))}
                                 </div>
                             </div>
+
                             <button 
-                                onClick={(e) => { e.preventDefault(); nextSlide(); }}
-                                className="px-12 py-4 bg-[#FF91A4] text-white rounded-2xl font-bold hover:bg-[#FF7A8F] transition-all shadow-lg shadow-[#FF91A4]/20 flex items-center gap-3 group relative z-50 pointer-events-auto"
+                                onClick={nextSlide}
+                                className="relative z-20 px-12 py-4 bg-[#FF91A4] text-white rounded-2xl font-bold hover:bg-[#FF7A8F] transition-all shadow-lg shadow-[#FF91A4]/20 flex items-center gap-3 group"
                             >
                                 INICIAR OVA <Icon name="chevron-right" size={20} className="group-hover:translate-x-1 transition-transform" />
                             </button>
@@ -112,31 +124,28 @@
                 {
                     title: "Contexto",
                     content: (
-                        <div className="h-full p-10 flex flex-col bg-white slide-enter">
+                        <div className="h-full p-10 flex flex-col bg-white slide-enter overflow-hidden">
                             <h2 className="text-3xl font-[800] text-[#5C5C5C] mb-8 flex items-center gap-4">
                                 <div className="p-3 bg-[#FFF0F3] rounded-2xl text-[#FF91A4]"><Icon name="map-pin" size={28} /></div> Contexto del Problema
                             </h2>
-                            <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+                            <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8 shrink-0">
                                 <div className="bg-[#E2F0CB] p-6 rounded-[32px] border-b-4 border-[#C5D9A5]">
                                     <Icon name="globe" className="text-[#6B8E23] mb-3" />
                                     <h4 className="font-bold text-[#4B611F] text-sm">OMS: Prevalencia</h4>
                                     <p className="text-3xl font-black text-[#6B8E23]">15-20%</p>
-                                    <p className="text-[10px] text-[#4B611F] mt-2 leading-relaxed">Más de 20 millones de bebés nacen con peso inferior a 2500g anualmente.</p>
                                 </div>
                                 <div className="bg-[#FFD1DC] p-6 rounded-[32px] border-b-4 border-[#FFB7C5]">
                                     <Icon name="shield-alert" className="text-[#D66A7D] mb-3" />
                                     <h4 className="font-bold text-[#8C3D4D] text-sm">Cifras Locales</h4>
                                     <p className="text-3xl font-black text-[#D66A7D]">66%</p>
-                                    <p className="text-[10px] text-[#8C3D4D] mt-2 leading-relaxed">Hospital Niño Jesús: Prevalencia estrechamente ligada a anemia materna.</p>
                                 </div>
                                 <div className="bg-[#FDF4DC] p-6 rounded-[32px] border-b-4 border-[#F5E1A4]">
                                     <Icon name="stethoscope" className="text-[#B89B3D] mb-3" />
                                     <h4 className="font-bold text-[#7A6729] text-sm">Meta 2025</h4>
                                     <p className="text-3xl font-black text-[#B89B3D]">-30%</p>
-                                    <p className="text-[10px] text-[#7A6729] mt-2 leading-relaxed">Meta global de la OMS para la reducción de casos de BPN.</p>
                                 </div>
                             </div>
-                            <div className="bg-[#F9FAFB] p-8 rounded-[32px] border border-[#E5E7EB] flex-1 overflow-auto">
+                            <div className="bg-[#F9FAFB] p-8 rounded-[32px] border border-[#E5E7EB] flex-1 overflow-y-auto custom-scroll">
                                 <h3 className="font-bold text-[#5C5C5C] mb-4 flex items-center gap-2 italic text-base">Justificación de la Amenaza</h3>
                                 <p className="text-sm text-[#7A7A7A] leading-relaxed">
                                     El Bajo Peso al Nacer (BPN) es una amenaza biológica contemporánea porque impacta el desarrollo vitalicio. En Barranquilla, factores como la nutrición materna insuficiente y el limitado acceso a salud prenatal convierten esta condición en un riesgo acumulativo que afecta dimensiones cognitivas y socioemocionales desde el inicio de la vida.
@@ -158,28 +167,16 @@
                                         <Icon name="brain" size={22} /> Modelo de Piaget
                                     </h3>
                                     <ul className="text-sm text-[#4B7C6C] space-y-4">
-                                        <li className="flex gap-3">
-                                            <span className="font-bold">•</span>
-                                            <span><strong>Reflejos innatos:</strong> El equipamiento biológico básico para la interacción inicial.</span>
-                                        </li>
-                                        <li className="flex gap-3">
-                                            <span className="font-bold">•</span>
-                                            <span><strong>Maduración física:</strong> El progreso entre etapas cognitivas depende de la integridad del cuerpo.</span>
-                                        </li>
-                                        <li className="flex gap-3">
-                                            <span className="font-bold">•</span>
-                                            <span><strong>Teratógenos:</strong> Ejemplo de la Talidomida: daño biológico que limita la capacidad de acción.</span>
-                                        </li>
+                                        <li><strong>Reflejos innatos:</strong> El equipamiento biológico básico.</li>
+                                        <li><strong>Maduración física:</strong> Integridad del cuerpo para etapas cognitivas.</li>
+                                        <li><strong>Teratógenos:</strong> Daño biológico que limita la capacidad de acción.</li>
                                     </ul>
                                 </div>
                                 <div className="bg-[#F8F9FA] p-8 rounded-[40px] border border-[#E9ECEF]">
                                     <h3 className="font-bold text-[#5C5C5C] text-xs uppercase mb-4 tracking-widest text-[#AFAFAF]">Perspectiva Orgánica</h3>
                                     <p className="text-sm text-[#7A7A7A] leading-relaxed mb-6">
-                                        Según <strong>Bronfenbrenner</strong>, la herencia constituye la "constitución orgánica". El sujeto posee una capacidad de readaptación biológica continua a un medio demandante.
+                                        Según Bronfenbrenner, la herencia constituye la "constitución orgánica". El sujeto posee una capacidad de readaptación biológica continua a un medio demandante.
                                     </p>
-                                    <div className="p-4 bg-white rounded-2xl text-xs text-[#AFAFAF] italic border border-dashed border-[#E5E7EB]">
-                                        * El riesgo biológico no es solo un fallo mecánico, sino una base fisiológica que el sujeto debe interpretar para sobrevivir.
-                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -195,26 +192,15 @@
                             <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
                                 <div className="bg-[#F9FAFB] p-6 rounded-[32px] border-t-8 border-[#FFD1DC] shadow-sm">
                                     <h4 className="font-bold text-[#5C5C5C] text-sm mb-3">Microsistema</h4>
-                                    <p className="text-xs text-[#7A7A7A] leading-relaxed">Calidad de vivienda, higiene y polución. El entorno más inmediato del recién nacido en Barranquilla.</p>
+                                    <p className="text-xs text-[#7A7A7A]">Vivienda e higiene inmediata.</p>
                                 </div>
                                 <div className="bg-[#F9FAFB] p-6 rounded-[32px] border-t-8 border-[#B5EAD7] shadow-sm">
                                     <h4 className="font-bold text-[#5C5C5C] text-sm mb-3">Mesosistema</h4>
-                                    <p className="text-xs text-[#7A7A7A] leading-relaxed">La interconexión crítica entre la familia y los centros de control prenatal de la ciudad.</p>
+                                    <p className="text-xs text-[#7A7A7A]">Conexión familia y salud.</p>
                                 </div>
                                 <div className="bg-[#F9FAFB] p-6 rounded-[32px] border-t-8 border-[#C7CEEA] shadow-sm">
                                     <h4 className="font-bold text-[#5C5C5C] text-sm mb-3">Macro/Exosistema</h4>
-                                    <p className="text-xs text-[#7A7A7A] leading-relaxed">Políticas públicas de salud, estatus socioeconómico y mitos culturales sobre el embarazo.</p>
-                                </div>
-                            </div>
-                            <div className="bg-[#FFF9F9] p-8 rounded-[40px] border border-[#FFD1DC] flex items-start gap-6 shadow-sm">
-                                <div className="p-4 bg-white rounded-full shadow-sm">
-                                    <Icon name="quote" className="text-[#FF91A4]" size={24} />
-                                </div>
-                                <div>
-                                    <h4 className="font-bold text-sm text-[#5C5C5C] mb-2 uppercase tracking-tight">Influencia Cultural (Piaget)</h4>
-                                    <p className="text-sm text-[#7A7A7A] italic leading-relaxed">
-                                        "Las prácticas culturales influyen directamente en el ritmo del desarrollo. El ambiente no es solo un escenario, sino una fuerza que moldea el potencial biológico heredado."
-                                    </p>
+                                    <p className="text-xs text-[#7A7A7A]">Políticas de salud y cultura.</p>
                                 </div>
                             </div>
                         </div>
@@ -234,17 +220,8 @@
                                         <p className="text-3xl font-black text-[#5C5C5C]">Conducta = f (P ↔ A)</p>
                                     </div>
                                     <div className="bg-[#F0F4FF] p-8 rounded-[40px] border-l-8 border-[#C7CEEA] shadow-sm">
-                                        <h3 className="font-bold text-[#5C5C5C] text-sm mb-3 italic">Erikson: Confianza vs. Desconfianza</h3>
-                                        <p className="text-xs text-[#6A718F] leading-relaxed">
-                                            El BPN y las hospitalizaciones prolongadas pueden impactar el vínculo inicial. Si el ambiente no provee estabilidad, se siembra la desconfianza básica.
-                                        </p>
-                                    </div>
-                                </div>
-                                <div className="bg-[#EFFFFB] p-8 rounded-[48px] border border-[#B5EAD7] shadow-sm flex flex-col justify-center">
-                                    <h3 className="font-bold text-[#4B7C6C] text-sm mb-6 uppercase tracking-widest text-center">Procesos de Adaptación</h3>
-                                    <div className="space-y-4">
-                                        <div className="bg-white/60 p-5 rounded-3xl border border-white text-xs"><strong>Asimilación:</strong> Interpretar experiencias desde esquemas previos.</div>
-                                        <div className="bg-white/60 p-5 rounded-3xl border border-white text-xs"><strong>Acomodación:</strong> El cambio estructural ante demandas ambientales.</div>
+                                        <h3 className="font-bold text-[#5C5C5C] text-sm mb-3 italic">Erikson</h3>
+                                        <p className="text-xs text-[#6A718F]">Confianza vs. Desconfianza: Impacto del vínculo inicial por hospitalización.</p>
                                     </div>
                                 </div>
                             </div>
@@ -258,30 +235,19 @@
                             <h2 className="text-3xl font-[800] text-[#5C5C5C] mb-8 flex items-center gap-4">
                                 <div className="p-3 bg-gray-100 rounded-2xl text-gray-500"><Icon name="graduation-cap" size={28} /></div> Sustento Teórico
                             </h2>
-                            <div className="bg-[#FFF5F6] p-8 rounded-[40px] border-2 border-dashed border-[#FFD1DC] mb-8 shadow-sm">
-                                <h3 className="font-bold text-[#5C5C5C] text-lg mb-3">Papalia (2012): El Enfoque del Ciclo Vital</h3>
-                                <p className="text-sm text-[#7A7A7A] leading-relaxed italic">
-                                    "El desarrollo es <strong>multidimensional y multidireccional</strong>. Una afectación biológica inicial como el BPN reverbera en lo cognitivo y social a lo largo de la vida."
+                            <div className="bg-[#FFF5F6] p-8 rounded-[40px] border-2 border-dashed border-[#FFD1DC] mb-8">
+                                <h3 className="font-bold text-[#5C5C5C] text-lg mb-3">Papalia (2012)</h3>
+                                <p className="text-sm text-[#7A7A7A] italic leading-relaxed">
+                                    "El desarrollo es multidimensional y multidireccional."
                                 </p>
                             </div>
                             <div className="bg-[#F9FAFB] p-8 rounded-[40px] flex-1">
-                                <h4 className="text-[10px] font-black text-[#AFAFAF] uppercase tracking-widest mb-6 flex items-center gap-2">
-                                    <Icon name="book-open" size={14}/> Referencias Bibliográficas (APA)
-                                </h4>
-                                <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-[11px] text-[#7A7A7A]">
-                                    {[
-                                        "Erikson, E. H. (1950). Childhood and society. Norton & Co.",
-                                        "Feldman, R. (2007). Desarrollo Psicológico. Pearson.",
-                                        "OMS (2014). Metas mundiales sobre Bajo Peso al Nacer.",
-                                        "Papalia, D. E. (2012). Desarrollo humano. McGraw-Hill.",
-                                        "Pérez Fernández, F. (2004). El modelo de Bronfenbrenner."
-                                    ].map((ref, i) => (
-                                        <div key={i} className="flex gap-3 leading-snug items-start">
-                                            <div className="w-1.5 h-1.5 rounded-full bg-[#FFB7B2] mt-1 shrink-0"></div>
-                                            <span>{ref}</span>
-                                        </div>
-                                    ))}
-                                </div>
+                                <h4 className="text-[10px] font-black text-[#AFAFAF] uppercase tracking-widest mb-4">Bibliografía</h4>
+                                <ul className="text-[11px] text-[#7A7A7A] space-y-2">
+                                    <li>• Erikson, E. H. (1950). Childhood and society.</li>
+                                    <li>• OMS (2014). Metas mundiales sobre BPN.</li>
+                                    <li>• Papalia, D. E. (2012). Desarrollo humano.</li>
+                                </ul>
                             </div>
                         </div>
                     )
@@ -290,15 +256,15 @@
 
             return (
                 <div className="w-full flex h-[700px] bg-white rounded-[48px] shadow-2xl overflow-hidden border border-white">
-                    {/* SIDEBAR */}
-                    <div className="hidden md:flex flex-col w-72 bg-[#FAFBFD] border-r border-[#F0F2F5] p-10 justify-between shrink-0">
+                    {/* SIDEBAR - INTERACTIVA */}
+                    <aside className="hidden md:flex flex-col w-72 bg-[#FAFBFD] border-r border-[#F0F2F5] p-10 justify-between shrink-0 relative z-30">
                         <div className="space-y-12">
                             <div className="flex items-center gap-4 px-2">
-                                <div className="w-12 h-12 bg-[#FFD1DC] rounded-[20px] flex items-center justify-center text-[#FF91A4] shadow-md shadow-[#FFD1DC]/40">
+                                <div className="w-12 h-12 bg-[#FFD1DC] rounded-[20px] flex items-center justify-center text-[#FF91A4] shadow-md">
                                     <Icon name="sparkles" size={24} />
                                 </div>
                                 <div className="leading-tight">
-                                    <p className="text-[10px] font-black text-[#D1D5DB] uppercase tracking-[0.2em]">CIA Interactiva</p>
+                                    <p className="text-[10px] font-black text-[#D1D5DB] uppercase">CIA Interactiva</p>
                                     <p className="text-xl font-[800] text-[#5C5C5C]">OVA</p>
                                 </div>
                             </div>
@@ -307,7 +273,7 @@
                                     <button 
                                         key={index} 
                                         onClick={() => setCurrentSlide(index)}
-                                        className={`w-full text-left px-6 py-4 rounded-[22px] transition-all duration-300 text-sm flex items-center gap-5 group ${
+                                        className={`w-full text-left px-6 py-4 rounded-[22px] transition-all duration-300 text-sm flex items-center gap-5 group pointer-events-auto ${
                                             currentSlide === index 
                                             ? 'bg-white text-[#FF91A4] font-bold shadow-xl shadow-[#FFD1DC]/30 scale-105' 
                                             : 'text-[#9CA3AF] hover:text-[#5C5C5C] hover:bg-[#F3F4F6]'
@@ -319,28 +285,24 @@
                                 ))}
                             </nav>
                         </div>
-                        <div className="p-6 bg-white rounded-[32px] border border-[#F0F2F5] shadow-sm">
-                            <p className="text-[10px] font-bold text-[#D1D5DB] mb-1 italic uppercase tracking-tighter">Unidad 1 - ABP</p>
-                            <p className="text-xs text-[#7A7A7A] leading-tight font-bold">Desarrollo Humano</p>
-                        </div>
-                    </div>
+                    </aside>
 
-                    {/* MAIN CONTENT */}
-                    <div className="flex-1 flex flex-col h-full bg-white relative">
-                        {/* Slide Display */}
-                        <div className="flex-1 relative overflow-hidden">
+                    {/* MAIN CONTENT AREA */}
+                    <main className="flex-1 flex flex-col h-full bg-white relative">
+                        {/* Slide Display Container */}
+                        <div className="flex-1 relative overflow-hidden z-10">
                             {slides[currentSlide].content}
                         </div>
                         
-                        {/* CONTROLS */}
-                        <div className="flex justify-between items-center px-12 py-8 bg-white border-t border-[#F0F2F5] shrink-0">
+                        {/* BOTTOM CONTROLS - REFORZADOS */}
+                        <div className="flex justify-between items-center px-12 py-8 bg-white border-t border-[#F0F2F5] shrink-0 relative z-40">
                             <button 
-                                onClick={prevSlide} 
+                                onClick={(e) => { e.preventDefault(); prevSlide(); }}
                                 disabled={currentSlide === 0}
-                                className={`flex items-center gap-3 px-8 py-3 rounded-2xl font-bold text-xs uppercase tracking-widest transition-all ${
+                                className={`flex items-center gap-3 px-8 py-3 rounded-2xl font-bold text-xs uppercase tracking-widest transition-all pointer-events-auto ${
                                     currentSlide === 0 
-                                    ? 'text-gray-200 cursor-not-allowed opacity-50' 
-                                    : 'text-[#7A7A7A] hover:bg-[#F9FAFB] cursor-pointer'
+                                    ? 'text-gray-200 opacity-50 cursor-not-allowed' 
+                                    : 'text-[#7A7A7A] hover:bg-[#F9FAFB] cursor-pointer active:scale-95'
                                 }`}
                             >
                                 <Icon name="chevron-left" size={18} /> Anterior
@@ -356,18 +318,18 @@
                             </div>
 
                             <button 
-                                onClick={nextSlide} 
+                                onClick={(e) => { e.preventDefault(); nextSlide(); }}
                                 disabled={currentSlide === slides.length - 1}
-                                className={`flex items-center gap-3 px-10 py-3 rounded-2xl font-bold text-xs uppercase tracking-widest transition-all ${
+                                className={`flex items-center gap-3 px-10 py-3 rounded-2xl font-bold text-xs uppercase tracking-widest transition-all pointer-events-auto ${
                                     currentSlide === slides.length - 1 
-                                    ? 'text-gray-200 cursor-not-allowed opacity-50' 
+                                    ? 'text-gray-200 opacity-50 cursor-not-allowed' 
                                     : 'bg-[#FF91A4] text-white shadow-xl shadow-[#FF91A4]/30 hover:bg-[#FF7A8F] hover:scale-105 active:scale-95 cursor-pointer'
                                 }`}
                             >
                                 Siguiente <Icon name="chevron-right" size={18} />
                             </button>
                         </div>
-                    </div>
+                    </main>
                 </div>
             );
         };
