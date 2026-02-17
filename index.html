@@ -27,11 +27,11 @@
         }
 
         .slide-content {
-            animation: slideIn 0.3s ease-out;
+            animation: slideIn 0.3s ease-out forwards;
         }
 
         @keyframes slideIn {
-            from { opacity: 0; transform: translateX(20px); }
+            from { opacity: 0; transform: translateX(15px); }
             to { opacity: 1; transform: translateX(0); }
         }
 
@@ -46,10 +46,12 @@
             border-radius: 10px;
         }
 
-        /* Asegurar que los botones siempre capturen el clic */
+        /* Garantía de interactividad */
         button {
             cursor: pointer !important;
             touch-action: manipulation;
+            position: relative;
+            z-index: 50;
         }
     </style>
 </head>
@@ -57,7 +59,7 @@
     <div id="root" class="w-full max-w-6xl px-4"></div>
 
     <script type="text/babel">
-        const { useState, useEffect, useCallback } = React;
+        const { useState, useEffect } = React;
 
         const Icon = ({ name, size = 24, className = "" }) => {
             useEffect(() => {
@@ -71,7 +73,6 @@
         const App = () => {
             const [currentSlide, setCurrentSlide] = useState(0);
 
-            // Definición de diapositivas con todo el contenido teórico
             const slides = [
                 { 
                     id: "home",
@@ -131,9 +132,9 @@
                                 </div>
                             </div>
                             <div className="bg-gray-50 p-8 rounded-[32px] border border-gray-200">
-                                <h3 className="font-bold text-[#5C5C5C] mb-2 italic">Justificación</h3>
+                                <h3 className="font-bold text-[#5C5C5C] mb-2 italic text-lg">Justificación</h3>
                                 <p className="text-sm text-[#7A7A7A] leading-relaxed">
-                                    El BPN impacta el desarrollo vitalicio. En el Caribe, la nutrición insuficiente convierte esta condición en un riesgo acumulativo que afecta dimensiones cognitivas y socioemocionales desde el nacimiento.
+                                    El Bajo Peso al Nacer (BPN) no es solo un dato clínico; es un impacto que reverbera en el ciclo vital. En Barranquilla, las disparidades nutricionales convierten esta condición biológica en una barrera para el desarrollo cognitivo.
                                 </p>
                             </div>
                         </div>
@@ -151,18 +152,18 @@
                                 <div className="bg-[#EFFFFB] p-8 rounded-[40px] border-l-8 border-[#B5EAD7] shadow-sm">
                                     <h3 className="font-bold text-[#4B7C6C] mb-6 text-lg">Modelo de Piaget</h3>
                                     <ul className="text-sm text-[#4B7C6C] space-y-4">
-                                        <li><strong>Reflejos innatos:</strong> Equipamiento biológico básico.</li>
-                                        <li><strong>Maduración física:</strong> El progreso cognitivo depende de la integridad del cuerpo.</li>
-                                        <li><strong>Teratógenos:</strong> Daño biológico que limita la capacidad de acción.</li>
+                                        <li><strong>Reflejos innatos:</strong> Son el equipo biológico básico del neonato.</li>
+                                        <li><strong>Maduración física:</strong> El cerebro necesita integridad física para avanzar en las etapas cognitivas.</li>
+                                        <li><strong>Teratógenos:</strong> Daño biológico que limita el potencial heredado.</li>
                                     </ul>
                                 </div>
                                 <div className="bg-gray-50 p-8 rounded-[40px] border border-gray-100">
-                                    <h3 className="font-bold text-[#5C5C5C] text-xs uppercase mb-4 tracking-widest text-gray-400">Perspectiva Orgánica</h3>
+                                    <h3 className="font-bold text-[#5C5C5C] text-xs uppercase mb-4 tracking-widest text-gray-400">Teoría de Bronfenbrenner</h3>
                                     <p className="text-sm text-[#7A7A7A] leading-relaxed mb-6">
-                                        Según Bronfenbrenner, la herencia es la "constitución orgánica". El sujeto posee una capacidad de readaptación biológica continua.
+                                        La herencia constituye la <strong>"constitución orgánica"</strong>. Es la base sobre la cual los sistemas ambientales actuarán para moldear el desarrollo.
                                     </p>
                                     <div className="p-4 bg-white rounded-2xl text-[10px] text-gray-400 italic border border-gray-100">
-                                        * El riesgo biológico es una base fisiológica que el sujeto debe interpretar para sobrevivir.
+                                        * Un bebé con BPN inicia su desarrollo con una vulnerabilidad orgánica que demanda un ambiente más robusto.
                                     </div>
                                 </div>
                             </div>
@@ -178,24 +179,26 @@
                                 <Icon name="home" size={28} className="text-[#6B8E23]" /> Análisis del Ambiente
                             </h2>
                             <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
-                                <div className="bg-[#F9FAFB] p-6 rounded-[32px] border-t-8 border-[#FFD1DC] shadow-sm">
-                                    <h4 className="font-bold text-[#5C5C5C] text-sm mb-3 text-pink-400">Microsistema</h4>
-                                    <p className="text-xs text-[#7A7A7A]">Vivienda, higiene y polución. El entorno más inmediato del recién nacido.</p>
+                                <div className="bg-[#F9FAFB] p-6 rounded-[32px] border-t-8 border-[#FFD1DC]">
+                                    <h4 className="font-bold text-[#5C5C5C] text-sm mb-3">Microsistema</h4>
+                                    <p className="text-xs text-[#7A7A7A]">Calidad del hogar, nutrición de la madre y cuidados directos.</p>
                                 </div>
-                                <div className="bg-[#F9FAFB] p-6 rounded-[32px] border-t-8 border-[#B5EAD7] shadow-sm">
-                                    <h4 className="font-bold text-[#5C5C5C] text-sm mb-3 text-emerald-400">Mesosistema</h4>
-                                    <p className="text-xs text-[#7A7A7A]">La interconexión crítica entre la familia y los centros de salud.</p>
+                                <div className="bg-[#F9FAFB] p-6 rounded-[32px] border-t-8 border-[#B5EAD7]">
+                                    <h4 className="font-bold text-[#5C5C5C] text-sm mb-3">Mesosistema</h4>
+                                    <p className="text-xs text-[#7A7A7A]">Relación entre la familia y los programas de salud pública.</p>
                                 </div>
-                                <div className="bg-[#F9FAFB] p-6 rounded-[32px] border-t-8 border-[#C7CEEA] shadow-sm">
-                                    <h4 className="font-bold text-[#5C5C5C] text-sm mb-3 text-indigo-400">Exosistema</h4>
-                                    <p className="text-xs text-[#7A7A7A]">Políticas públicas de salud y estatus socioeconómico regional.</p>
+                                <div className="bg-[#F9FAFB] p-6 rounded-[32px] border-t-8 border-[#C7CEEA]">
+                                    <h4 className="font-bold text-[#5C5C5C] text-sm mb-3">Exosistema</h4>
+                                    <p className="text-xs text-[#7A7A7A]">Políticas de salud en Barranquilla y acceso a seguridad alimentaria.</p>
                                 </div>
                             </div>
                             <div className="bg-[#FFF9F9] p-8 rounded-[40px] border border-[#FFD1DC] flex items-start gap-6">
                                 <Icon name="quote" className="text-[#FF91A4] shrink-0" />
                                 <div>
-                                    <h4 className="font-bold text-sm text-[#5C5C5C] mb-1">Influencia Cultural (Piaget)</h4>
-                                    <p className="text-sm text-[#7A7A7A] italic leading-relaxed">"Las prácticas culturales influyen directamente en el ritmo del desarrollo físico y cognitivo."</p>
+                                    <h4 className="font-bold text-sm text-[#5C5C5C] mb-1">Determinismo Ambiental</h4>
+                                    <p className="text-sm text-[#7A7A7A] italic leading-relaxed">
+                                        "El ambiente puede compensar o exacerbar la vulnerabilidad biológica inicial del recién nacido."
+                                    </p>
                                 </div>
                             </div>
                         </div>
@@ -212,15 +215,15 @@
                             <div className="bg-[#FFF5F6] p-8 rounded-[40px] border-2 border-dashed border-[#FFD1DC] mb-8">
                                 <h3 className="font-bold text-[#5C5C5C] text-lg mb-3">Papalia (2012): Enfoque del Ciclo Vital</h3>
                                 <p className="text-sm text-[#7A7A7A] italic leading-relaxed">
-                                    "El desarrollo es multidimensional y multidireccional. Una afectación biológica inicial como el BPN reverbera en lo cognitivo y social a lo largo de toda la vida."
+                                    "El desarrollo es multidimensional. El BPN afecta no solo el peso, sino la trayectoria de salud física y la capacidad de aprendizaje."
                                 </p>
                             </div>
                             <div className="bg-gray-50 p-8 rounded-[40px]">
-                                <h4 className="text-[10px] font-black text-gray-400 uppercase tracking-widest mb-6">Bibliografía Consultada</h4>
+                                <h4 className="text-[10px] font-black text-gray-400 uppercase tracking-widest mb-6">Referencias Bibliográficas</h4>
                                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-[11px] text-[#7A7A7A]">
                                     <p>• Erikson, E. H. (1950). Childhood and society.</p>
                                     <p>• Feldman, R. (2007). Desarrollo Psicológico.</p>
-                                    <p>• OMS (2014). Metas mundiales sobre BPN.</p>
+                                    <p>• OMS (2014). Metas mundiales sobre Bajo Peso al Nacer.</p>
                                     <p>• Papalia, D. E. (2012). Desarrollo humano.</p>
                                 </div>
                             </div>
@@ -252,7 +255,7 @@
                                     onClick={() => setCurrentSlide(i)}
                                     className={`w-full text-left px-5 py-3 rounded-2xl text-sm transition-all ${
                                         currentSlide === i 
-                                        ? 'bg-white shadow-lg text-[#FF91A4] font-bold' 
+                                        ? 'bg-white shadow-md text-[#FF91A4] font-bold' 
                                         : 'text-gray-400 hover:text-gray-600'
                                     }`}
                                 >
@@ -265,15 +268,15 @@
                         </div>
                     </aside>
 
-                    {/* CUERPO DE LA APP */}
-                    <main className="flex-1 flex flex-col min-w-0 bg-white">
+                    {/* CUERPO PRINCIPAL */}
+                    <main className="flex-1 flex flex-col min-w-0 bg-white relative">
                         {/* Area de Contenido */}
                         <div className="flex-1 overflow-hidden relative">
                             {slides[currentSlide].content}
                         </div>
 
-                        {/* Barra de Navegación (Independiente) */}
-                        <div className="h-24 px-10 border-t border-gray-50 flex items-center justify-between bg-white shrink-0">
+                        {/* Barra de Navegación Inferior */}
+                        <div className="h-24 px-10 border-t border-gray-50 flex items-center justify-between bg-white shrink-0 relative z-50">
                             <button 
                                 onClick={goToPrev}
                                 disabled={currentSlide === 0}
