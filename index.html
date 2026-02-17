@@ -1,342 +1,310 @@
-import React, { useState } from 'react';
-import { 
-  BookOpen, Baby, Dna, Globe, Users, Brain, 
-  ChevronRight, ChevronLeft, Home, Activity, 
-  Heart, ShieldAlert, GraduationCap, MapPin, 
-  Stethoscope, Quote, Sparkles
-} from 'lucide-react';
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OVA: Amenaza Biológica - BPN</title>
+    <!-- Tailwind CSS para los estilos -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- React y Babel para ejecutar JSX en el navegador -->
+    <script src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;900&display=swap');
+        body { font-family: 'Inter', sans-serif; overflow: hidden; }
+        .slide-transition { transition: all 0.5s ease-in-out; }
+    </style>
+</head>
+<body class="bg-[#F0F2F5]">
+    <div id="root"></div>
 
-const App = () => {
-  const [currentSlide, setCurrentSlide] = useState(0);
+    <script type="text/babel">
+        const { useState, useEffect } = React;
 
-  const nextSlide = () => setCurrentSlide(prev => Math.min(prev + 1, slides.length - 1));
-  const prevSlide = () => setCurrentSlide(prev => Math.max(prev - 1, 0));
+        // Componente de Icono (Adaptador para Lucide en Script)
+        const Icon = ({ name, size = 24, className = "" }) => {
+            useEffect(() => {
+                if (window.lucide) {
+                    window.lucide.createIcons();
+                }
+            }, [name]);
+            return <i data-lucide={name} style={{width: size, height: size}} className={`inline-block ${className}`}></i>;
+        };
 
-  // --- COMPONENTES DE DIAPOSITIVAS ---
+        const App = () => {
+            const [currentSlide, setCurrentSlide] = useState(0);
 
-  // 1. PORTADA
-  const Cover = () => (
-    <div className="flex flex-col items-center justify-center h-full text-center space-y-6 p-10 bg-[#FFF9F9] rounded-3xl relative overflow-hidden">
-      {/* Decoración de fondo */}
-      <div className="absolute top-0 right-0 w-64 h-64 bg-[#FDE2E4] rounded-full -mr-32 -mt-32 opacity-60 blur-3xl"></div>
-      <div className="absolute bottom-0 left-0 w-64 h-64 bg-[#E2F0CB] rounded-full -ml-32 -mb-32 opacity-60 blur-3xl"></div>
-      
-      <div className="relative">
-        <div className="bg-white p-8 rounded-full shadow-lg relative border-4 border-[#FFD1DC]">
-          <Baby size={80} className="text-[#FF91A4]" />
-        </div>
-        <Sparkles className="absolute -top-2 -right-2 text-[#FFB7B2]" />
-      </div>
-      
-      <div className="space-y-2 relative z-10">
-        <h1 className="text-4xl font-black text-[#5C5C5C] tracking-tight leading-tight">
-          Amenazas Biológicas <span className="text-[#FF91A4] text-3xl block italic">Contemporáneas en Barranquilla</span>
-        </h1>
-        <div className="h-1.5 w-32 bg-[#FFD1DC] mx-auto rounded-full"></div>
-        <h2 className="text-xl font-medium text-[#7A7A7A]">Bajo Peso al Nacer (BPN): Herencia y Ambiente</h2>
-      </div>
+            const nextSlide = () => setCurrentSlide(prev => Math.min(prev + 1, slides.length - 1));
+            const prevSlide = () => setCurrentSlide(prev => Math.max(prev - 1, 0));
 
-      <div className="bg-white/80 backdrop-blur-sm p-6 rounded-3xl shadow-sm border border-[#FFD1DC] max-w-2xl w-full relative z-10">
-        <p className="text-[10px] font-bold text-[#AFAFAF] uppercase tracking-[0.2em] mb-4">Integrantes del CIA - Unidad 1</p>
-        <div className="grid grid-cols-2 md:grid-cols-3 gap-3 text-xs text-[#5C5C5C] font-semibold">
-          {['Jose Florez', 'Isamara Tovio Torres', 'Sailly Arias', 'Valeria Castillo', 'Valerie'].map((name, i) => (
-            <div key={i} className="bg-[#FFF0F3] p-2 rounded-xl border border-[#FFD1DC]/30 shadow-sm">{name}</div>
-          ))}
-        </div>
-      </div>
+            const slides = [
+                { 
+                    title: "Inicio",
+                    content: (
+                        <div className="flex flex-col items-center justify-center h-full text-center space-y-6 p-10 bg-[#FFF9F9] rounded-3xl relative overflow-hidden">
+                            <div className="absolute top-0 right-0 w-64 h-64 bg-[#FDE2E4] rounded-full -mr-32 -mt-32 opacity-60 blur-3xl"></div>
+                            <div className="absolute bottom-0 left-0 w-64 h-64 bg-[#E2F0CB] rounded-full -ml-32 -mb-32 opacity-60 blur-3xl"></div>
+                            <div className="relative">
+                                <div className="bg-white p-8 rounded-full shadow-lg relative border-4 border-[#FFD1DC]">
+                                    <Icon name="baby" size={80} className="text-[#FF91A4]" />
+                                </div>
+                                <Icon name="sparkles" className="absolute -top-2 -right-2 text-[#FFB7B2]" />
+                            </div>
+                            <div className="space-y-2 relative z-10">
+                                <h1 className="text-4xl font-black text-[#5C5C5C] tracking-tight leading-tight">
+                                    Amenazas Biológicas <span className="text-[#FF91A4] text-3xl block italic">Contemporáneas en Barranquilla</span>
+                                </h1>
+                                <div className="h-1.5 w-32 bg-[#FFD1DC] mx-auto rounded-full"></div>
+                                <h2 className="text-xl font-medium text-[#7A7A7A]">Bajo Peso al Nacer (BPN): Herencia y Ambiente</h2>
+                            </div>
+                            <div className="bg-white/80 backdrop-blur-sm p-6 rounded-3xl shadow-sm border border-[#FFD1DC] max-w-2xl w-full relative z-10">
+                                <p className="text-[10px] font-bold text-[#AFAFAF] uppercase tracking-[0.2em] mb-4">Integrantes del CIA - Unidad 1</p>
+                                <div className="grid grid-cols-2 md:grid-cols-3 gap-3 text-xs text-[#5C5C5C] font-semibold">
+                                    {['Jose Florez', 'Isamara Tovio Torres', 'Sailly Arias', 'Valeria Castillo', 'Valerie'].map((name, i) => (
+                                        <div key={i} className="bg-[#FFF0F3] p-2 rounded-xl border border-[#FFD1DC]/30 shadow-sm">{name}</div>
+                                    ))}
+                                </div>
+                            </div>
+                            <button onClick={nextSlide} className="px-12 py-4 bg-[#FF91A4] text-white rounded-2xl font-black hover:bg-[#FF7A8F] transition-all shadow-lg shadow-[#FF91A4]/20 flex items-center gap-3 group">
+                                INICIAR OVA <Icon name="chevron-right" size={20} className="group-hover:translate-x-1 transition-transform" />
+                            </button>
+                        </div>
+                    )
+                },
+                {
+                    title: "Contexto",
+                    content: (
+                        <div className="h-full p-8 flex flex-col bg-white">
+                            <h2 className="text-3xl font-black text-[#5C5C5C] mb-6 flex items-center gap-3">
+                                <Icon name="map-pin" className="text-[#FF91A4]" /> Contexto del Problema
+                            </h2>
+                            <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
+                                <div className="bg-[#E2F0CB] p-6 rounded-3xl border-b-4 border-[#C5D9A5]">
+                                    <Icon name="globe" className="text-[#6B8E23] mb-2" />
+                                    <h4 className="font-bold text-[#4B611F] text-sm">OMS: Prevalencia</h4>
+                                    <p className="text-3xl font-black text-[#6B8E23]">15-20%</p>
+                                    <p className="text-[10px] text-[#4B611F] mt-1">Más de 20 millones de bebés nacen con peso {'<'} 2500g cada año.</p>
+                                </div>
+                                <div className="bg-[#FFD1DC] p-6 rounded-3xl border-b-4 border-[#FFB7C5]">
+                                    <Icon name="shield-alert" className="text-[#D66A7D] mb-2" />
+                                    <h4 className="font-bold text-[#8C3D4D] text-sm">Cifras Locales</h4>
+                                    <p className="text-3xl font-black text-[#D66A7D]">66%</p>
+                                    <p className="text-[10px] text-[#8C3D4D] mt-1">Hospital Niño Jesús: Prevalencia ligada a anemia materna.</p>
+                                </div>
+                                <div className="bg-[#FDF4DC] p-6 rounded-3xl border-b-4 border-[#F5E1A4]">
+                                    <Icon name="stethoscope" className="text-[#B89B3D] mb-2" />
+                                    <h4 className="font-bold text-[#7A6729] text-sm">Meta 2025</h4>
+                                    <p className="text-3xl font-black text-[#B89B3D]">-30%</p>
+                                    <p className="text-[10px] text-[#7A7A7A] mt-1">Meta global de la OMS para reducción de BPN.</p>
+                                </div>
+                            </div>
+                            <div className="bg-[#F9FAFB] p-6 rounded-3xl border border-[#E5E7EB] flex-1">
+                                <h3 className="font-bold text-[#5C5C5C] mb-3 flex items-center gap-2 italic text-sm">Justificación de la Amenaza</h3>
+                                <p className="text-xs text-[#7A7A7A] leading-relaxed">
+                                    El BPN es una amenaza biológica contemporánea porque impacta el desarrollo vitalicio. En Barranquilla, factores como la nutrición materna y el acceso a salud prenatal convierten esta condición física en un riesgo acumulativo que afecta dimensiones cognitivas y socioemocionales desde el inicio de la vida.
+                                </p>
+                            </div>
+                        </div>
+                    )
+                },
+                {
+                    title: "Herencia",
+                    content: (
+                        <div className="h-full p-8 overflow-y-auto bg-white">
+                            <h2 className="text-3xl font-black text-[#5C5C5C] mb-6 flex items-center gap-3">
+                                <Icon name="dna" className="text-[#B5EAD7]" /> Análisis de la Herencia
+                            </h2>
+                            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                                <div className="bg-[#EFFFFB] p-6 rounded-3xl border-l-8 border-[#B5EAD7] shadow-sm">
+                                    <h3 className="font-black text-[#4B7C6C] flex items-center gap-2 mb-4 text-sm">
+                                        <Icon name="brain" size={18} /> Modelo de Piaget (Feldman, 2007)
+                                    </h3>
+                                    <ul className="text-xs text-[#4B7C6C] space-y-3">
+                                        <li>• <strong>Reflejos innatos:</strong> Equipamiento biológico base de la interacción.</li>
+                                        <li>• <strong>Maduración física:</strong> El paso de etapas depende de la integridad del cuerpo.</li>
+                                        <li>• <strong>Talidomida:</strong> Daño biológico que limita la acción.</li>
+                                    </ul>
+                                </div>
+                                <div className="bg-[#F8F9FA] p-6 rounded-3xl border border-[#E9ECEF]">
+                                    <h3 className="font-bold text-[#5C5C5C] text-xs uppercase mb-4 tracking-wider">Perspectiva Orgánica</h3>
+                                    <p className="text-xs text-[#7A7A7A] leading-relaxed mb-4">
+                                        Según <strong>Bronfenbrenner</strong>, la herencia es la "constitución orgánica". El sujeto posee mecanismos de supervivencia y una capacidad de readaptación biológica continua.
+                                    </p>
+                                    <div className="p-3 bg-white rounded-2xl text-[10px] text-[#AFAFAF] italic">
+                                        * El riesgo biológico es una base fisiológica que el sujeto debe interpretar.
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    )
+                },
+                {
+                    title: "Ambiente",
+                    content: (
+                        <div className="h-full p-8 overflow-y-auto bg-white">
+                            <h2 className="text-3xl font-black text-[#5C5C5C] mb-6 flex items-center gap-3">
+                                <Icon name="home" className="text-[#E2F0CB]" /> Análisis del Ambiente
+                            </h2>
+                            <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
+                                <div className="bg-[#F7F7F7] p-5 rounded-3xl border-t-4 border-[#FFD1DC]">
+                                    <h4 className="font-bold text-[#5C5C5C] text-xs mb-2">Microsistema</h4>
+                                    <p className="text-[10px] text-[#7A7A7A]">Calidad de vivienda e higiene. El entorno inmediato en Barranquilla.</p>
+                                </div>
+                                <div className="bg-[#F7F7F7] p-5 rounded-3xl border-t-4 border-[#B5EAD7]">
+                                    <h4 className="font-bold text-[#5C5C5C] text-xs mb-2">Mesosistema</h4>
+                                    <p className="text-[10px] text-[#7A7A7A]">Relación entre la familia y los controles prenatales del hospital.</p>
+                                </div>
+                                <div className="bg-[#F7F7F7] p-5 rounded-3xl border-t-4 border-[#C7CEEA]">
+                                    <h4 className="font-bold text-[#5C5C5C] text-xs mb-2">Macro/Exosistema</h4>
+                                    <p className="text-[10px] text-[#7A7A7A]">Leyes de salud y estatus económico sobre el embarazo.</p>
+                                </div>
+                            </div>
+                            <div className="bg-[#FFF9F9] p-6 rounded-3xl border border-[#FFD1DC] flex items-start gap-4 shadow-sm">
+                                <Icon name="quote" className="text-[#FF91A4] mt-1" size={20} />
+                                <div>
+                                    <h4 className="font-bold text-xs text-[#5C5C5C] mb-1">Influencia Cultural:</h4>
+                                    <p className="text-[11px] text-[#7A7A7A] italic leading-relaxed">
+                                        "Las prácticas culturales influyen en el ritmo del desarrollo. El ambiente moldea el potencial biológico desde la gestación."
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    )
+                },
+                {
+                    title: "Interacción",
+                    content: (
+                        <div className="h-full p-8 bg-white overflow-y-auto">
+                            <h2 className="text-3xl font-black text-[#5C5C5C] mb-6 flex items-center gap-3">
+                                <Icon name="activity" className="text-[#FFB7B2]" /> Interacción Herencia-Ambiente
+                            </h2>
+                            <div className="grid md:grid-cols-2 gap-6">
+                                <div className="space-y-4">
+                                    <div className="bg-[#FFF0F3] p-6 rounded-[40px] border-b-8 border-[#FFD1DC] text-center">
+                                        <h3 className="text-[10px] font-black text-[#FF91A4] uppercase tracking-widest mb-2">Ecuación de Bronfenbrenner</h3>
+                                        <p className="text-2xl font-black text-[#5C5C5C]">Conducta = f (P ↔ A)</p>
+                                    </div>
+                                    <div className="bg-[#F0F4FF] p-5 rounded-3xl border-l-8 border-[#C7CEEA]">
+                                        <h3 className="font-bold text-[#5C5C5C] text-xs mb-2 italic">Psicosocial (Erikson)</h3>
+                                        <p className="text-[11px] text-[#6A718F]">
+                                            <strong>Confianza vs. Desconfianza:</strong> El BPN puede generar desconfianza si el ambiente no responde con estabilidad.
+                                        </p>
+                                    </div>
+                                </div>
+                                <div className="bg-[#EFFFFB] p-6 rounded-3xl">
+                                    <h3 className="font-bold text-[#4B7C6C] text-xs mb-4 uppercase tracking-tighter">Mecanismos (Piaget)</h3>
+                                    <div className="space-y-3">
+                                        <div className="bg-white/80 p-3 rounded-2xl text-[10px]"><strong>Asimilación:</strong> Interpretar el ambiente con esquemas existentes.</div>
+                                        <div className="bg-white/80 p-3 rounded-2xl text-[10px]"><strong>Acomodación:</strong> Modificar estructuras internas ante estímulos.</div>
+                                    </div>
+                                    <p className="mt-4 text-[10px] text-[#4B7C6C] font-semibold italic leading-relaxed">
+                                        "Un ambiente favorable puede mitigar riesgos biológicos permitiendo un desarrollo cognitivo normal."
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    )
+                },
+                {
+                    title: "Sustento",
+                    content: (
+                        <div className="h-full p-8 flex flex-col bg-white overflow-y-auto">
+                            <h2 className="text-3xl font-black text-[#5C5C5C] mb-6 flex items-center gap-3">
+                                <Icon name="graduation-cap" className="text-[#AFAFAF]" /> Sustento Teórico
+                            </h2>
+                            <div className="bg-[#FFF5F6] p-6 rounded-[32px] border-2 border-dashed border-[#FFD1DC] mb-6 shadow-sm">
+                                <h3 className="font-bold text-[#5C5C5C] text-sm mb-2">Desarrollo Integral (Papalia, 2012)</h3>
+                                <p className="text-xs text-[#7A7A7A] leading-relaxed italic">
+                                    "El desarrollo es <strong>vitalicio, multidimensional y multidireccional</strong>. El BPN afecta dimensiones biológicas, cognitivas y socioemocionales de forma integral."
+                                </p>
+                            </div>
+                            <div className="bg-[#F9FAFB] p-6 rounded-3xl flex-1">
+                                <h4 className="text-[9px] font-black text-[#AFAFAF] uppercase tracking-widest mb-4">Referencias Bibliográficas (APA)</h4>
+                                <div className="grid grid-cols-1 md:grid-cols-2 gap-2 text-[9px] text-[#7A7A7A]">
+                                    {[
+                                        "Erikson, E. H. (1950). Childhood and society.",
+                                        "Feldman, R. (2007). Desarrollo Psicológico. Pearson.",
+                                        "OMS (2014). Metas mundiales sobre BPN. WHO.",
+                                        "Papalia, D. E. (2012). Desarrollo humano. McGraw-Hill.",
+                                        "Pérez Fernández, F. (2004). Modelo de Bronfenbrenner."
+                                    ].map((ref, i) => (
+                                        <div key={i} className="flex gap-2 leading-tight">
+                                            <span className="text-[#FFB7B2] font-bold">•</span>
+                                            <span>{ref}</span>
+                                        </div>
+                                    ))}
+                                </div>
+                            </div>
+                        </div>
+                    )
+                }
+            ];
 
-      <button 
-        onClick={nextSlide}
-        className="px-12 py-4 bg-[#FF91A4] text-white rounded-2xl font-black hover:bg-[#FF7A8F] transition-all shadow-lg shadow-[#FF91A4]/20 flex items-center gap-3 group"
-      >
-        INICIAR OVA <ChevronRight size={20} className="group-hover:translate-x-1 transition-transform" />
-      </button>
-    </div>
-  );
+            return (
+                <div className="w-full h-screen flex items-center justify-center p-4">
+                    <div className="w-full max-w-5xl h-[650px] bg-white rounded-[48px] shadow-2xl overflow-hidden flex flex-col md:flex-row border border-white">
+                        
+                        {/* Sidebar Navigation */}
+                        <div className="hidden md:flex flex-col w-72 bg-[#FAFBFD] border-r border-[#F0F2F5] p-8 justify-between">
+                            <div className="space-y-10">
+                                <div className="flex items-center gap-3 px-2">
+                                    <div className="w-10 h-10 bg-[#FFD1DC] rounded-2xl flex items-center justify-center text-[#FF91A4] shadow-sm">
+                                        <Icon name="sparkles" size={20} />
+                                    </div>
+                                    <div className="leading-none">
+                                        <p className="text-[10px] font-black text-[#AFAFAF] uppercase tracking-widest">OVA INTERACTIVO</p>
+                                        <p className="text-base font-black text-[#5C5C5C]">Desarrollo</p>
+                                    </div>
+                                </div>
+                                <nav className="space-y-2">
+                                    {slides.map((slide, index) => (
+                                        <button key={index} onClick={() => setCurrentSlide(index)}
+                                            className={`w-full text-left px-5 py-3.5 rounded-2xl transition-all duration-300 text-xs flex items-center gap-4 ${currentSlide === index ? 'bg-white text-[#FF91A4] font-bold shadow-lg shadow-[#FFD1DC]/30 scale-105' : 'text-[#AFAFAF] hover:text-[#5C5C5C] hover:bg-[#F3F4F6]'}`}>
+                                            <span className={`w-1.5 h-1.5 rounded-full ${currentSlide === index ? 'bg-[#FF91A4]' : 'bg-[#E5E7EB]'}`}></span>
+                                            {slide.title}
+                                        </button>
+                                    ))}
+                                </nav>
+                            </div>
+                            <div className="p-5 bg-white rounded-3xl border border-[#F0F2F5] shadow-sm">
+                                <p className="text-[9px] font-bold text-[#AFAFAF] mb-1 italic uppercase">Proyecto CIA - ABP</p>
+                                <p className="text-[10px] text-[#7A7A7A] leading-tight font-medium">Bajo Peso al Nacer en Barranquilla.</p>
+                            </div>
+                        </div>
 
-  // 2. CONTEXTO (OMS + BARRANQUILLA)
-  const Context = () => (
-    <div className="h-full p-8 flex flex-col bg-white">
-      <h2 className="text-3xl font-black text-[#5C5C5C] mb-6 flex items-center gap-3">
-        <MapPin className="text-[#FF91A4]" /> Contexto del Problema
-      </h2>
-      
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
-        <div className="bg-[#E2F0CB] p-6 rounded-3xl border-b-4 border-[#C5D9A5]">
-          <Globe className="text-[#6B8E23] mb-2" />
-          <h4 className="font-bold text-[#4B611F] text-sm">OMS: Prevalencia</h4>
-          <p className="text-3xl font-black text-[#6B8E23]">15-20%</p>
-          <p className="text-[10px] text-[#4B611F] mt-1">Más de 20 millones de bebés nacen con peso {'<'} 2500g cada año.</p>
-        </div>
-        <div className="bg-[#FFD1DC] p-6 rounded-3xl border-b-4 border-[#FFB7C5]">
-          <ShieldAlert className="text-[#D66A7D] mb-2" />
-          <h4 className="font-bold text-[#8C3D4D] text-sm">Cifras Locales</h4>
-          <p className="text-3xl font-black text-[#D66A7D]">66%</p>
-          <p className="text-[10px] text-[#8C3D4D] mt-1">Hospital Niño Jesús: Prevalencia ligada a anemia materna.</p>
-        </div>
-        <div className="bg-[#FDF4DC] p-6 rounded-3xl border-b-4 border-[#F5E1A4]">
-          <Stethoscope className="text-[#B89B3D] mb-2" />
-          <h4 className="font-bold text-[#7A6729] text-sm">Meta 2025</h4>
-          <p className="text-3xl font-black text-[#B89B3D]">-30%</p>
-          <p className="text-[10px] text-[#7A6729] mt-1">Meta global de la OMS para reducción de BPN en recién nacidos.</p>
-        </div>
-      </div>
+                        {/* Content Area */}
+                        <div className="flex-1 flex flex-col h-full bg-white relative">
+                            <div className="flex-1 relative overflow-hidden slide-transition">
+                                {slides[currentSlide].content}
+                            </div>
+                            
+                            {/* Footer Controls */}
+                            <div className="flex justify-between items-center px-10 py-6 bg-white border-t border-[#F0F2F5]">
+                                <button onClick={prevSlide} disabled={currentSlide === 0}
+                                    className={`flex items-center gap-2 px-6 py-2.5 rounded-2xl font-black text-[10px] uppercase tracking-widest transition-all ${currentSlide === 0 ? 'text-[#E5E7EB] cursor-not-allowed' : 'text-[#7A7A7A] hover:bg-[#F9FAFB]'}`}>
+                                    <Icon name="chevron-left" size={16} /> Anterior
+                                </button>
+                                <div className="flex gap-2">
+                                    {slides.map((_, i) => (
+                                        <div key={i} className={`h-1.5 rounded-full transition-all duration-500 ${currentSlide === i ? 'w-10 bg-[#FFD1DC]' : 'w-2 bg-[#F3F4F6]'}`}></div>
+                                    ))}
+                                </div>
+                                <button onClick={nextSlide} disabled={currentSlide === slides.length - 1}
+                                    className={`flex items-center gap-2 px-8 py-2.5 rounded-2xl font-black text-[10px] uppercase tracking-widest transition-all ${currentSlide === slides.length - 1 ? 'text-[#E5E7EB] cursor-not-allowed' : 'bg-[#FF91A4] text-white shadow-lg shadow-[#FFD1DC] hover:bg-[#FF7A8F]'}`}>
+                                    Siguiente <Icon name="chevron-right" size={16} />
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            );
+        };
 
-      <div className="bg-[#F9FAFB] p-6 rounded-3xl border border-[#E5E7EB] flex-1">
-        <h3 className="font-bold text-[#5C5C5C] mb-3 flex items-center gap-2 italic text-sm">Justificación de la Amenaza</h3>
-        <p className="text-xs text-[#7A7A7A] leading-relaxed">
-          El BPN es una amenaza biológica contemporánea porque impacta el desarrollo vitalicio. En Barranquilla, factores como la nutrición materna y el acceso a salud prenatal convierten esta condición física en un riesgo acumulativo que afecta dimensiones cognitivas y socioemocionales desde el inicio de la vida.
-        </p>
-      </div>
-    </div>
-  );
-
-  // 3. ANÁLISIS HERENCIA (Piaget)
-  const Herencia = () => (
-    <div className="h-full p-8 overflow-y-auto bg-white">
-      <h2 className="text-3xl font-black text-[#5C5C5C] mb-6 flex items-center gap-3">
-        <Dna className="text-[#B5EAD7]" /> Análisis de la Herencia
-      </h2>
-
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-        <div className="bg-[#EFFFFB] p-6 rounded-3xl border-l-8 border-[#B5EAD7] shadow-sm">
-          <h3 className="font-black text-[#4B7C6C] flex items-center gap-2 mb-4 text-sm">
-            <Brain size={18} /> Modelo de Piaget (Feldman, 2007)
-          </h3>
-          <ul className="text-xs text-[#4B7C6C] space-y-3">
-            <li className="flex gap-2"><span>•</span> <strong>Reflejos innatos:</strong> Equipamiento biológico (succión, búsqueda) base de la interacción.</li>
-            <li className="flex gap-2"><span>•</span> <strong>Maduración física:</strong> El paso de etapas depende de la integridad del cuerpo.</li>
-            <li className="flex gap-2"><span>•</span> <strong>Talidomida:</strong> Ejemplo de cómo teratógenos dañan la herencia biológica y limitan la acción.</li>
-          </ul>
-        </div>
-
-        <div className="bg-[#F8F9FA] p-6 rounded-3xl border border-[#E9ECEF]">
-          <h3 className="font-bold text-[#5C5C5C] text-xs uppercase mb-4 tracking-wider">Perspectiva Orgánica</h3>
-          <p className="text-xs text-[#7A7A7A] leading-relaxed mb-4">
-            Según <strong>Bronfenbrenner (Pérez Fernández, 2004)</strong>, la herencia es la "constitución orgánica". El sujeto posee mecanismos de supervivencia y una capacidad de readaptación biológica continua a un medio demandante.
-          </p>
-          <div className="p-3 bg-white rounded-2xl text-[10px] text-[#AFAFAF] italic">
-            * El riesgo biológico no es solo mecánico, sino una base fisiológica que el sujeto debe interpretar.
-          </div>
-        </div>
-      </div>
-    </div>
-  );
-
-  // 4. ANÁLISIS AMBIENTE (Bronfenbrenner)
-  const Ambiente = () => (
-    <div className="h-full p-8 overflow-y-auto bg-white">
-      <h2 className="text-3xl font-black text-[#5C5C5C] mb-6 flex items-center gap-3">
-        <Home className="text-[#E2F0CB]" /> Análisis del Ambiente
-      </h2>
-      
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
-        <div className="bg-[#F7F7F7] p-5 rounded-3xl border-t-4 border-[#FFD1DC]">
-          <h4 className="font-bold text-[#5C5C5C] text-xs mb-2">Microsistema</h4>
-          <p className="text-[10px] text-[#7A7A7A]">Calidad de vivienda, higiene y polución. El entorno inmediato del hogar en Barranquilla.</p>
-        </div>
-        <div className="bg-[#F7F7F7] p-5 rounded-3xl border-t-4 border-[#B5EAD7]">
-          <h4 className="font-bold text-[#5C5C5C] text-xs mb-2">Mesosistema</h4>
-          <p className="text-[10px] text-[#7A7A7A]">Interconexión. Ejemplo: La relación entre la familia y los controles prenatales del hospital.</p>
-        </div>
-        <div className="bg-[#F7F7F7] p-5 rounded-3xl border-t-4 border-[#C7CEEA]">
-          <h4 className="font-bold text-[#5C5C5C] text-xs mb-2">Macro / Exosistema</h4>
-          <p className="text-[10px] text-[#7A7A7A]">Leyes de salud, estatus económico y creencias culturales sobre el embarazo.</p>
-        </div>
-      </div>
-
-      <div className="bg-[#FFF9F9] p-6 rounded-3xl border border-[#FFD1DC] flex items-start gap-4 shadow-sm">
-        <div className="p-3 bg-white rounded-full shadow-sm">
-          <Quote className="text-[#FF91A4]" size={20} />
-        </div>
-        <div>
-          <h4 className="font-bold text-xs text-[#5C5C5C] mb-1">Influencia Cultural (Piaget):</h4>
-          <p className="text-[11px] text-[#7A7A7A] italic">
-            "Las prácticas culturales influyen en el ritmo del desarrollo. En Costa de Marfil, el énfasis en habilidades motoras acelera subetapas, demostrando que el ambiente moldea el potencial biológico."
-          </p>
-        </div>
-      </div>
-    </div>
-  );
-
-  // 5. INTERACCIÓN (Erikson + Adaptación)
-  const Interaccion = () => (
-    <div className="h-full p-8 bg-white">
-      <h2 className="text-3xl font-black text-[#5C5C5C] mb-6 flex items-center gap-3">
-        <Activity className="text-[#FFB7B2]" /> Interacción Herencia-Ambiente
-      </h2>
-
-      <div className="grid md:grid-cols-2 gap-6">
-        <div className="space-y-4">
-          <div className="bg-[#FFF0F3] p-6 rounded-[40px] border-b-8 border-[#FFD1DC] text-center">
-            <h3 className="text-[10px] font-black text-[#FF91A4] uppercase tracking-widest mb-2">Ecuación de Bronfenbrenner</h3>
-            <p className="text-2xl font-black text-[#5C5C5C]">Conducta = f (P ↔ A)</p>
-          </div>
-          
-          <div className="bg-[#F0F4FF] p-5 rounded-3xl border-l-8 border-[#C7CEEA]">
-            <h3 className="font-bold text-[#5C5C5C] text-xs mb-2 italic">Psicosocial (Erikson, 1950)</h3>
-            <p className="text-[11px] text-[#6A718F]">
-              <strong>Confianza vs. Desconfianza:</strong> El BPN y las hospitalizaciones pueden generar desconfianza si el ambiente no responde con estabilidad y afecto.
-            </p>
-          </div>
-        </div>
-
-        <div className="bg-[#EFFFFB] p-6 rounded-3xl">
-          <h3 className="font-bold text-[#4B7C6C] text-xs mb-4 uppercase tracking-tighter">Mecanismos de Adaptación (Piaget)</h3>
-          <div className="space-y-3">
-            <div className="bg-white/80 p-3 rounded-2xl text-[10px]">
-              <span className="font-bold text-[#4B7C6C]">Asimilación:</span> Interpretar el ambiente con esquemas existentes.
-            </div>
-            <div className="bg-white/80 p-3 rounded-2xl text-[10px]">
-              <span className="font-bold text-[#4B7C6C]">Acomodación:</span> Modificar estructuras internas ante nuevos estímulos.
-            </div>
-          </div>
-          <p className="mt-4 text-[10px] text-[#4B7C6C] font-semibold italic">
-            "Un ambiente favorable puede mitigar riesgos biológicos graves (como nacer sin extremidades) permitiendo un desarrollo cognitivo normal."
-          </p>
-        </div>
-      </div>
-    </div>
-  );
-
-  // 6. SUSTENTO TEÓRICO (Papalia + Bibliografía)
-  const Teorias = () => (
-    <div className="h-full p-8 flex flex-col bg-white">
-      <h2 className="text-3xl font-black text-[#5C5C5C] mb-6 flex items-center gap-3">
-        <GraduationCap className="text-[#AFAFAF]" /> Sustento Teórico
-      </h2>
-
-      <div className="bg-[#FFF5F6] p-6 rounded-[32px] border-2 border-dashed border-[#FFD1DC] mb-6 shadow-sm">
-        <h3 className="font-bold text-[#5C5C5C] text-sm mb-2">Desarrollo Integral (Papalia, 2012)</h3>
-        <p className="text-xs text-[#7A7A7A] leading-relaxed italic">
-          "El desarrollo es <strong>vitalicio, multidimensional y multidireccional</strong>. El BPN afecta dimensiones biológicas, cognitivas y socioemocionales; los cambios en una influyen en las demás de forma integral."
-        </p>
-      </div>
-
-      <div className="bg-[#F9FAFB] p-6 rounded-3xl flex-1">
-        <h4 className="text-[9px] font-black text-[#AFAFAF] uppercase tracking-widest mb-4">Referencias Bibliográficas (APA)</h4>
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-2">
-          {[
-            "Erikson, E. H. (1950). Childhood and society. W. W. Norton & Company.",
-            "Feldman, R. (2007). Modelo de Piaget. En Desarrollo Psicológico. Pearson.",
-            "OMS (2014). Metas mundiales sobre Bajo Peso al Nacer. WHO.",
-            "Papalia, D. E., et al. (2012). Desarrollo humano. McGraw-Hill.",
-            "Pérez Fernández, F. (2004). El modelo ecológico de Bronfenbrenner. EduPsykhé."
-          ].map((ref, i) => (
-            <div key={i} className="text-[9px] text-[#7A7A7A] flex gap-2 leading-tight">
-              <span className="text-[#FFB7B2] font-bold">•</span>
-              <span>{ref}</span>
-            </div>
-          ))}
-        </div>
-      </div>
-    </div>
-  );
-
-  const slides = [
-    { component: <Cover />, title: "Inicio" },
-    { component: <Context />, title: "Contexto" },
-    { component: <Herencia />, title: "Herencia" },
-    { component: <Ambiente />, title: "Ambiente" },
-    { component: <Interaccion />, title: "Interacción" },
-    { component: <Teorias />, title: "Sustento" }
-  ];
-
-  return (
-    <div className="w-full h-screen bg-[#F0F2F5] flex items-center justify-center p-4 font-sans text-[#5C5C5C] overflow-hidden">
-      <div className="w-full max-w-5xl h-[650px] bg-white rounded-[48px] shadow-2xl overflow-hidden flex flex-col md:flex-row border border-white">
-        
-        {/* Sidebar Navigation */}
-        <div className="hidden md:flex flex-col w-72 bg-[#FAFBFD] border-r border-[#F0F2F5] p-8 justify-between">
-          <div className="space-y-10">
-            <div className="flex items-center gap-3 px-2">
-              <div className="w-10 h-10 bg-[#FFD1DC] rounded-2xl flex items-center justify-center text-[#FF91A4] shadow-sm">
-                <Sparkles size={20} />
-              </div>
-              <div className="leading-none">
-                <p className="text-[10px] font-black text-[#AFAFAF] uppercase tracking-widest">OVA INTERACTIVO</p>
-                <p className="text-base font-black text-[#5C5C5C]">Desarrollo</p>
-              </div>
-            </div>
-            
-            <nav className="space-y-2">
-              {slides.map((slide, index) => (
-                <button
-                  key={index}
-                  onClick={() => setCurrentSlide(index)}
-                  className={`w-full text-left px-5 py-3.5 rounded-2xl transition-all duration-300 text-xs flex items-center gap-4 ${
-                    currentSlide === index 
-                      ? 'bg-white text-[#FF91A4] font-bold shadow-lg shadow-[#FFD1DC]/30 scale-105' 
-                      : 'text-[#AFAFAF] hover:text-[#5C5C5C] hover:bg-[#F3F4F6]'
-                  }`}
-                >
-                  <span className={`w-1.5 h-1.5 rounded-full ${currentSlide === index ? 'bg-[#FF91A4]' : 'bg-[#E5E7EB]'}`}></span>
-                  {slide.title}
-                </button>
-              ))}
-            </nav>
-          </div>
-
-          <div className="p-5 bg-white rounded-3xl border border-[#F0F2F5] shadow-sm">
-            <p className="text-[9px] font-bold text-[#AFAFAF] mb-1 italic">PROYECTO CIA - ABP</p>
-            <p className="text-[10px] text-[#7A7A7A] leading-tight font-medium">Bajo Peso al Nacer en Barranquilla.</p>
-          </div>
-        </div>
-
-        {/* Content Area */}
-        <div className="flex-1 flex flex-col h-full bg-white relative">
-          {/* Header Mobile */}
-          <div className="md:hidden bg-[#FAFBFD] p-5 flex justify-between items-center border-b border-[#F0F2F5]">
-            <span className="font-black text-[#5C5C5C] uppercase text-[10px] tracking-widest">{slides[currentSlide].title}</span>
-            <div className="flex gap-2">
-              <button onClick={prevSlide} className="p-2 bg-white rounded-xl shadow-sm"><ChevronLeft size={18}/></button>
-              <button onClick={nextSlide} className="p-2 bg-white rounded-xl shadow-sm"><ChevronRight size={18}/></button>
-            </div>
-          </div>
-
-          {/* Slide Body */}
-          <div className="flex-1 relative overflow-hidden">
-             <div className="relative h-full transition-all duration-500">
-               {slides[currentSlide].component}
-             </div>
-          </div>
-
-          {/* Footer Desktop Controls */}
-          <div className="hidden md:flex justify-between items-center px-10 py-6 bg-white border-t border-[#F0F2F5]">
-             <button 
-              onClick={prevSlide} 
-              disabled={currentSlide === 0}
-              className={`flex items-center gap-2 px-6 py-2.5 rounded-2xl font-black text-[10px] uppercase tracking-widest transition-all ${
-                currentSlide === 0 
-                ? 'text-[#E5E7EB] cursor-not-allowed' 
-                : 'text-[#7A7A7A] hover:bg-[#F9FAFB]'
-              }`}
-            >
-              <ChevronLeft size={16} /> Anterior
-            </button>
-            
-            <div className="flex gap-2">
-              {slides.map((_, i) => (
-                <div key={i} className={`h-1.5 rounded-full transition-all duration-500 ${currentSlide === i ? 'w-10 bg-[#FFD1DC]' : 'w-2 bg-[#F3F4F6]'}`}></div>
-              ))}
-            </div>
-
-            <button 
-              onClick={nextSlide} 
-              disabled={currentSlide === slides.length - 1}
-              className={`flex items-center gap-2 px-8 py-2.5 rounded-2xl font-black text-[10px] uppercase tracking-widest transition-all ${
-                currentSlide === slides.length - 1 
-                ? 'text-[#E5E7EB] cursor-not-allowed' 
-                : 'bg-[#FF91A4] text-white shadow-lg shadow-[#FFD1DC] hover:bg-[#FF7A8F]'
-              }`}
-            >
-              Siguiente <ChevronRight size={16} />
-            </button>
-          </div>
-        </div>
-      </div>
-    </div>
-  );
-};
-
-export default App;
+        const root = ReactDOM.createRoot(document.getElementById('root'));
+        root.render(<App />);
+    </script>
+</body>
+</html>
