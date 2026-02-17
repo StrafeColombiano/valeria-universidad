@@ -117,6 +117,149 @@
     );
 
     ReactDOM.createRoot(document.getElementById("root")).render(<App />);
+
+/* ======================
+   SLIDE 2 – CONTEXTO
+====================== */
+const Context = () => (
+  <section className="h-full p-10 space-y-6 overflow-y-auto">
+    <h2 className="text-2xl font-black text-slate-800">
+      Contexto del Problema
+    </h2>
+
+    <p className="text-sm text-slate-600 leading-relaxed">
+      El Bajo Peso al Nacer (BPN) es considerado una amenaza biológica
+      contemporánea debido a su impacto negativo en el desarrollo físico,
+      cognitivo y socioemocional a lo largo de la vida.
+    </p>
+
+    <ul className="list-disc pl-6 text-sm text-slate-600 space-y-2">
+      <li>OMS: entre el 15% y 20% de los recién nacidos presentan BPN.</li>
+      <li>
+        En Barranquilla, el Hospital Niño Jesús reporta alta prevalencia
+        asociada a anemia materna.
+      </li>
+      <li>La OMS plantea una reducción del 30% para el año 2025.</li>
+    </ul>
+  </section>
+);
+
+/* ======================
+   SLIDE 3 – HERENCIA
+====================== */
+const Herencia = () => (
+  <section className="h-full p-10 space-y-6 overflow-y-auto">
+    <h2 className="text-2xl font-black text-slate-800">
+      Análisis de la Herencia
+    </h2>
+
+    <p className="text-sm text-slate-600 leading-relaxed">
+      Según Piaget (Feldman, 2007), el desarrollo humano inicia con reflejos
+      innatos que permiten la interacción con el entorno. La maduración
+      biológica condiciona el avance por las etapas del desarrollo.
+    </p>
+
+    <p className="text-sm text-slate-600 leading-relaxed italic">
+      Bronfenbrenner define la herencia como la constitución orgánica del
+      individuo, la cual puede verse afectada por factores genéticos o
+      teratógenos.
+    </p>
+  </section>
+);
+
+/* ======================
+   SLIDE 4 – AMBIENTE
+====================== */
+const Ambiente = () => (
+  <section className="h-full p-10 space-y-6 overflow-y-auto">
+    <h2 className="text-2xl font-black text-slate-800">
+      Análisis del Ambiente
+    </h2>
+
+    <ul className="list-disc pl-6 text-sm text-slate-600 space-y-2">
+      <li>
+        <strong>Microsistema:</strong> condiciones de vivienda, higiene y
+        calidad del cuidado prenatal.
+      </li>
+      <li>
+        <strong>Mesosistema:</strong> interacción entre la familia y los
+        servicios de salud.
+      </li>
+      <li>
+        <strong>Macrosistema:</strong> políticas públicas, cultura y nivel
+        socioeconómico.
+      </li>
+    </ul>
+
+    <blockquote className="border-l-4 border-slate-300 pl-4 text-sm italic text-slate-500">
+      El ambiente puede potenciar o limitar el desarrollo biológico del niño.
+    </blockquote>
+  </section>
+);
+
+/* ======================
+   SLIDE 5 – INTERACCIÓN
+====================== */
+const Interaccion = () => (
+  <section className="h-full p-10 space-y-6 overflow-y-auto">
+    <h2 className="text-2xl font-black text-slate-800">
+      Interacción Herencia – Ambiente
+    </h2>
+
+    <p className="text-sm text-slate-600 leading-relaxed">
+      Bronfenbrenner plantea que la conducta es el resultado de la interacción
+      entre la persona y su ambiente. Un riesgo biológico como el BPN puede ser
+      mitigado por un entorno favorable.
+    </p>
+
+    <p className="text-sm text-slate-600 leading-relaxed">
+      Erikson explica que durante la primera etapa del desarrollo
+      (confianza vs. desconfianza), un ambiente estable y afectivo es clave para
+      el bienestar psicosocial.
+    </p>
+
+    <p className="text-sm text-slate-600 italic">
+      Piaget resalta la asimilación y acomodación como mecanismos de adaptación.
+    </p>
+  </section>
+);
+
+/* ======================
+   SLIDE 6 – SUSTENTO
+====================== */
+const Teorias = () => (
+  <section className="h-full p-10 space-y-6 overflow-y-auto">
+    <h2 className="text-2xl font-black text-slate-800">
+      Sustento Teórico
+    </h2>
+
+    <p className="text-sm italic text-slate-600">
+      Papalia (2012) señala que el desarrollo humano es vitalicio,
+      multidimensional y multidireccional.
+    </p>
+
+    <ul className="text-xs text-slate-500 space-y-1">
+      <li>Erikson, E. (1950). Childhood and society.</li>
+      <li>Feldman, R. (2007). Desarrollo psicológico.</li>
+      <li>OMS (2014). Metas mundiales sobre Bajo Peso al Nacer.</li>
+      <li>Papalia et al. (2012). Desarrollo humano.</li>
+      <li>Pérez Fernández (2004). Modelo ecológico.</li>
+    </ul>
+  </section>
+);
+
+/* ======================
+   ACTUALIZAR SLIDES
+====================== */
+const slides = [
+  { title: "Inicio", component: <Cover /> },
+  { title: "Contexto", component: <Context /> },
+  { title: "Herencia", component: <Herencia /> },
+  { title: "Ambiente", component: <Ambiente /> },
+  { title: "Interacción", component: <Interaccion /> },
+  { title: "Sustento", component: <Teorias /> }
+];
+
   </script>
 </body>
 </html>
